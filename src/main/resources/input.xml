@@ -1,0 +1,26 @@
+<musicBands>
+    <musicBand>
+        <name>Band A</name>
+        <coordinates>
+            <x>10</x>
+            <y>20</y>
+        </coordinates>
+        <numberOfParticipants>5</numberOfParticipants>
+        <genre>ROCK</genre>
+        <studio>
+            <name>Studio One</name>
+        </studio>
+    </musicBand>
+    <musicBand>
+        <name>Band B</name>
+        <coordinates>
+            <x>15</x>
+            <y>25</y>
+        </coordinates>
+        <numberOfParticipants>3</numberOfParticipants>
+        <genre>JAZZ</genre>
+        <studio>
+            <name>Studio Two</name>
+        </studio>
+    </musicBand>
+</musicBands>
