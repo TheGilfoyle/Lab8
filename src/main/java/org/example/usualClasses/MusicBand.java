@@ -2,7 +2,6 @@ package org.example.usualClasses;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.time.LocalDateTime;
 
 /**
@@ -18,14 +17,21 @@ public class MusicBand {
     private MusicGenre genre; //Поле может быть null
     private Studio studio; //Поле может быть null
 
-    public MusicBand(int id, String name, Coordinates coordinates, long numberOfParticipants, MusicGenre genre, Studio studio) {
-        this.id = id;
+    public MusicBand(String name, Coordinates coordinates, long numberOfParticipants, MusicGenre genre, Studio studio) {
         this.name = name;
         this.coordinates = coordinates;
-        this.init();
+        this.id=IDgen.generateID();
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.studio = studio;
+    }
+
+    public MusicBand() {
+        this.id = IDgen.generateID();
+    }
+
+    public MusicBand(boolean bool){
+        this.creationDate = java.time.LocalDateTime.now();
     }
 
     // Геттеры и сеттеры
@@ -88,12 +94,28 @@ public class MusicBand {
         this.studio = studio;
     }
 
-    @XmlTransient
-    public void init() {
-        this.creationDate = LocalDateTime.now(); // Автоматическая дата создания
+    public LocalDateTime getLocalCreationDate() {
+        return creationDate;
+    }
+
+    public void setLocalCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String fileToString() {
         return name + "," + coordinates.fileToString();
+    }
+
+    @Override
+    public String toString() {
+        return "MusicBand\n" +
+                "id=" + id +
+                "\nname='" + name + '\'' +
+                "\ncoordinates=" + coordinates +
+                "\ncreationDate=" + creationDate +
+                "\nnumberOfParticipants=" + numberOfParticipants +
+                "\ngenre=" + genre +
+                "\nstudio=" + studio +
+                "\n-------------------------";
     }
 }

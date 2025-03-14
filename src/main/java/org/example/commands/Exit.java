@@ -8,8 +8,6 @@ public class Exit extends Command {
         super("exit", "завершить программу (без сохранения в файл)");
     }
 
-    @Override
-    public void execute(String args) {}
 
     /**
      * Command to leave from app.

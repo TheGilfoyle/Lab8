@@ -6,7 +6,8 @@ public class Info extends Command {
     }
 
     @Override
-    public void execute(String args) {
-
+    public void execute() {
+        super.execute();
+        cm.info();
     }
 }

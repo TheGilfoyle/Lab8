@@ -1,10 +1,15 @@
 package org.example;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Scanner;
 
 import org.example.commands.Command;
+import org.example.commands.History;
 import org.example.managers.CollectionManager;
+import org.example.managers.ConsoleManager;
+import org.example.managers.HistoryCollection;
 import org.example.managers.XMLParser;
 import org.example.usualClasses.MusicBand;
 import org.example.functional.Invoker;
@@ -19,6 +24,10 @@ public class Main {
                 public static Invoker inv = new Invoker();
 
                 public static Scanner sc = new Scanner(System.in);
+
+                public static ConsoleManager console = new ConsoleManager();
+
+                public static HistoryCollection hc = new HistoryCollection();
 //                Проверка парсера
 //                public static void main(String[] args) {
 //                    try {
@@ -44,21 +53,23 @@ public class Main {
 //                }
 
                 public static void main(String[] args) {
-                    Invoker invoker = new Invoker();
                     System.out.print("Введите команду: ");
                     while (sc.hasNext()) {
                         try{
                             String line = sc.nextLine().trim();
                             String[] tokens = line.split(" ");
-                            Command command = invoker.commands.get(tokens[0]);
+                            console.setTokens(tokens);
+                            Command command = inv.commands.get(tokens[0]);
                             if (tokens.length == 2) {
-                                command.execute(tokens[1]);
+                               command.execute();
                             } else if (tokens.length == 1){
                                 command.execute();
                             }
                             System.out.print("Введите команду: ");
                         } catch (NullPointerException e){
-                            System.out.println("Команда неизвестная, введите другую");}
+                            System.out.println("Команда неизвестная, введите другую");
+                            System.out.print("Введите команду: ");
+                        }
 //                        } catch (IncorrectArgsNumber e){
 //                            System.out.println(e.getMessage());
 //                            System.out.println("Попробуйте ещё раз");

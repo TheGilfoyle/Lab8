@@ -1,5 +1,9 @@
 package org.example.commands;
 
+import org.example.usualClasses.MusicBand;
+
+import java.util.HashSet;
+
 public class Clear extends Command {
     public Clear() {
         super("clear", " очистить коллекцию");
@@ -7,11 +11,9 @@ public class Clear extends Command {
 
     @Override
     public void execute() {
-
+        super.execute();
+        cm.setCollection(new HashSet<MusicBand>());
+        System.out.println("Коллекция очищена...");
     }
 
-    @Override
-    public void execute(String word) {
-
-    }
 }

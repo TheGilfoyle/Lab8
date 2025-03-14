@@ -1,6 +1,8 @@
 package org.example.managers;
 
 import org.example.usualClasses.MusicBand;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -9,10 +11,13 @@ import java.util.*;
  */
 public class CollectionManager {
     /**
-     * The collection of Tickets.
+     * The collection
      */
     HashSet<MusicBand> bands = new HashSet<>();
+
     private long lastId = 0;
+
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     /**
      * Instantiates a new Collection manager.
@@ -52,6 +57,20 @@ public class CollectionManager {
         return null;
     }
 
+//    public int getMin(){
+//        if(bands.size() == 0)
+//            System.out.println("Коллекция пуста");
+//            return 0;
+//
+//        else{
+//            int min =
+//            for (MusicBand musicBand : bands) {
+//                musicBand
+//            }
+//        }
+//
+//    }
+
     /**
      * Remove music band from collection by ID.
      *
@@ -65,12 +84,20 @@ public class CollectionManager {
         }
     }
 
+//    public void updateID(long id){
+//        try {
+//            bands.remove(getMusicBandByID(id));
+//        }catch (IndexOutOfBoundsException ex){
+//            System.out.println("Введите значение long >=0");
+//        }
+//    }
+
     /**
      * Get music band's collection.
      *
      * @return the hashSet
      */
-    public HashSet<MusicBand> getTickets(){
+    public HashSet<MusicBand> getMusicBands(){
         return bands;
     }
 
@@ -92,6 +119,9 @@ public class CollectionManager {
         return s.toString();
     }
 
+    public void info(){
+        System.out.println("HashSet, " + creationDate.toString() + ", " + bands.size());
+    }
     /**
      * Get last generate id.
      *

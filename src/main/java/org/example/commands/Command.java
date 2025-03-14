@@ -20,8 +20,6 @@ public abstract class Command  implements Commander {
         this.description = description;
     }
 
-    protected String splite = "----------";
-
     public String getNameOfCommand() {
         return nameOfCommand;
     }
@@ -31,7 +29,9 @@ public abstract class Command  implements Commander {
     }
 
     @Override
-    public void execute() {}
+    public void execute() {
+        Main.hc.addCommand(getNameOfCommand());
+    }
 
     @Override
     public void description() {

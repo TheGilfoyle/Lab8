@@ -25,4 +25,8 @@ public class Invoker {
         commands.put("filter_less_than_studio", new FilterLessThanStudio());
         commands.put("history", new History());
     }
+
+    public Map<String, Command> getCommands() {
+        return commands;
+    }
 }
