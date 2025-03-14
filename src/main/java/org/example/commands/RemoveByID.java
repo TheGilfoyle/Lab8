@@ -4,7 +4,7 @@ import org.example.Main;
 
 public class RemoveByID extends Command {
     public RemoveByID() {
-        super("remove_by_id", "удалить элемент из коллекции по его id");
+        super("remove_by_id", "удалить элемент из коллекции по его id",1);
     }
 
     @Override

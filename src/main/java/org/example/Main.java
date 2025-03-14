@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import org.example.commands.Command;
 import org.example.commands.History;
+import org.example.exceptions.IncorrectArgsNumber;
 import org.example.managers.CollectionManager;
 import org.example.managers.ConsoleManager;
 import org.example.managers.HistoryCollection;
@@ -61,19 +62,25 @@ public class Main {
                             console.setTokens(tokens);
                             Command command = inv.commands.get(tokens[0]);
                             if (tokens.length == 2) {
-                               command.execute();
+                                try {
+                                    if (command.getArgsAmount() == 0) throw new IncorrectArgsNumber(0);
+                                    command.execute();
+                                } catch (IncorrectArgsNumber e) {
+                                    System.out.println(e.getMessage());
+                                }
                             } else if (tokens.length == 1){
+                                if (command.getArgsAmount() != 0) throw new IncorrectArgsNumber(command.getArgsAmount());
                                 command.execute();
                             }
                             System.out.print("Введите команду: ");
                         } catch (NullPointerException e){
                             System.out.println("Команда неизвестная, введите другую");
                             System.out.print("Введите команду: ");
+                        } catch (IncorrectArgsNumber e){
+                            System.out.println(e.getMessage());
+                            System.out.println("Попробуйте ещё раз");
+                            System.out.print("Введите команду: ");
                         }
-//                        } catch (IncorrectArgsNumber e){
-//                            System.out.println(e.getMessage());
-//                            System.out.println("Попробуйте ещё раз");
-//                        }
                     }
                 }
             }

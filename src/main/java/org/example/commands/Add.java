@@ -6,7 +6,7 @@ import org.example.usualClasses.MusicBand;
 
 public class Add extends Command {
     public Add() {
-        super("add", "Добавить новый элемент в коллекцию");
+        super("add", "Добавить новый элемент в коллекцию", 0);
     }
 
     @Override

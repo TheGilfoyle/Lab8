@@ -12,7 +12,7 @@ public class History extends Command {
     private final Deque<String> history = new LinkedList<>();
 
     public History() {
-        super("history", "вывести последние 11 команд (без их аргументов)");
+        super("history", "вывести последние 11 команд (без их аргументов)",0);
     }
 
     @Override

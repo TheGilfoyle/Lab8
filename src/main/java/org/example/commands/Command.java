@@ -14,10 +14,12 @@ public abstract class Command  implements Commander {
 
     protected String nameOfCommand;
     protected String description;
+    protected int argsAmount;
 
-    public Command(String name, String description) {
+    public Command(String name, String description, int argsAmount) {
         this.nameOfCommand = name;
         this.description = description;
+        this.argsAmount = argsAmount;
     }
 
     public String getNameOfCommand() {
@@ -26,6 +28,10 @@ public abstract class Command  implements Commander {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getArgsAmount() {
+        return argsAmount;
     }
 
     @Override

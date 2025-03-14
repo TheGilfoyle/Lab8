@@ -5,7 +5,7 @@ import org.example.usualClasses.MusicBand;
 
 public class FilterLessThanStudio extends Command {
     public FilterLessThanStudio() {
-        super("filter_less_than_studio", "вывести элементы, значение поля studio которых меньше заданного");
+        super("filter_less_than_studio", "вывести элементы, значение поля studio которых меньше заданного",1);
     }
 
     @Override

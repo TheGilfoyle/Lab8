@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RemoveLower extends Command {
     public RemoveLower() {
-        super("remove_lower", "удалить из коллекции все элементы, меньшие, чем заданный");
+        super("remove_lower", "удалить из коллекции все элементы, меньшие, чем заданный",1);
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.example.usualClasses.MusicBand;
 
 public class CountByStudio extends Command {
     public CountByStudio() {
-        super("count_by_studio","вывести количество элементов, значение поля studio которых равно заданному");
+        super("count_by_studio","вывести количество элементов, значение поля studio которых равно заданному",1);
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.example.usualClasses.MusicGenre;
 
 public class CountGreaterThanGenre extends Command {
     public CountGreaterThanGenre() {
-        super("count_greater_than_genre", "вывести количество элементов, значение поля genre которых больше за");
+        super("count_greater_than_genre", "вывести количество элементов, значение поля genre которых больше за",1);
     }
     @Override
     public void execute() {

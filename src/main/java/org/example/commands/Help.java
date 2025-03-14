@@ -6,7 +6,7 @@ import static org.example.Main.inv;
 
 public class Help extends Command {
     public Help() {
-        super("Help", "Вывести справку по доступным командам");
+        super("Help", "Вывести справку по доступным командам",0);
     }
 
     @Override

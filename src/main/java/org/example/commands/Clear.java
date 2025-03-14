@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Clear extends Command {
     public Clear() {
-        super("clear", " очистить коллекцию");
+        super("clear", " очистить коллекцию",0);
     }
 
     @Override
