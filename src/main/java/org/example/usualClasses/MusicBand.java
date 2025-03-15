@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Класс, представляющий музыкальную группу.
  */
 @XmlRootElement
-public class MusicBand {
+public class MusicBand implements Comparable<MusicBand>{
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -117,5 +117,10 @@ public class MusicBand {
                 "\ngenre=" + genre +
                 "\nstudio=" + studio +
                 "\n-------------------------";
+    }
+
+    @Override
+    public int compareTo(MusicBand o) {
+        return Long.compare(this.numberOfParticipants, o.numberOfParticipants);
     }
 }

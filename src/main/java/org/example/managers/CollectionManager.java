@@ -57,19 +57,10 @@ public class CollectionManager {
         return null;
     }
 
-//    public int getMin(){
-//        if(bands.size() == 0)
-//            System.out.println("Коллекция пуста");
-//            return 0;
-//
-//        else{
-//            int min =
-//            for (MusicBand musicBand : bands) {
-//                musicBand
-//            }
-//        }
-//
-//    }
+    public MusicBand getMinMusicBand(){
+        return Collections.min(bands);
+
+    }
 
     /**
      * Remove music band from collection by ID.
