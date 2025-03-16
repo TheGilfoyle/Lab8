@@ -14,8 +14,9 @@ public class AddIfMin extends Command {
         super.execute();
         DataCollector collector = new DataCollector();
         MusicBand musicBand = collector.wrap();
-        if (Main.cm.getMinMusicBand().compareTo(musicBand) > 0) {
+        if (Main.cm.getMinMusicBand().compareTo(musicBand) > 0 || Main.cm.getMinMusicBand() == null) {
             cm.addBand(musicBand);
+            System.out.println("Элемент добавлен в коллекцию...");
         }
         else{
             System.out.println("Этот элемент не имеет минимальное количество участников, поэтому он не был добавлен... :( ");

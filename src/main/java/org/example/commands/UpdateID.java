@@ -13,17 +13,6 @@ public class UpdateID extends Command {
     public void execute() {
         super.execute();
         int id = Integer.parseInt(Main.console.getToken(1));
-        int idOfPreviousElement =0;
-        for (MusicBand musicBand: cm.getMusicBands()){
-            if (musicBand.getId() == id){
-                idOfPreviousElement = musicBand.getId();
-                break;
-            }
-        }
-        cm.removeByID(1);
-        DataCollector collector = new DataCollector();
-        MusicBand musicBand = collector.wrap();
-        musicBand.setId(idOfPreviousElement);
-        cm.addBand(musicBand);
+        cm.updateID(id);
     }
 }

@@ -12,10 +12,7 @@ public class RemoveByID extends Command {
         super.execute();
         int id = Integer.parseInt(Main.console.getToken(1));
         cm.removeByID(id);
+        System.out.println("Элемент с ID: " + id + " удалён...");
     }
 
-    //    @Override
-//    public void execute(String args) {
-//
-//    }
 }

@@ -15,10 +15,10 @@ public class CountByStudio extends Command {
         long counter=0;
         String studio = Main.console.getToken(1);
         for (MusicBand musicBand: cm.getMusicBands()){
-            if (musicBand.getStudio().equals(studio)){
+            if (musicBand.getStudio().getName().equals(studio)){
                 counter++;
             }
         }
-        System.out.println("Вот аж столько музыкальных групп со студии "+ counter);
+        System.out.println("Вот аж столько музыкальных групп со студией \""+ studio + "\": "+ counter);
     }
 }

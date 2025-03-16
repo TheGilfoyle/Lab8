@@ -57,10 +57,14 @@ public class CollectionManager {
         return null;
     }
 
-    public MusicBand getMinMusicBand(){
+    public MusicBand getMinMusicBand() {
+        if (bands.isEmpty()) {
+            return null;
+        }
         return Collections.min(bands);
-
     }
+
+
 
     /**
      * Remove music band from collection by ID.
@@ -75,13 +79,22 @@ public class CollectionManager {
         }
     }
 
-//    public void updateID(long id){
-//        try {
-//            bands.remove(getMusicBandByID(id));
-//        }catch (IndexOutOfBoundsException ex){
-//            System.out.println("Введите значение long >=0");
-//        }
-//    }
+    public void updateID(int id){
+        DataCollector dataCollector = new DataCollector();
+        try {
+            MusicBand band = getMusicBandByID(id);
+            if (band!=null) {
+                bands.remove(band);
+            }
+            else {
+                return;
+            }
+        }catch (IndexOutOfBoundsException ex){
+            System.out.println("Введите значение int > 0");return;
+        }
+            MusicBand musicBand = dataCollector.wrap();
+            bands.add(musicBand);
+    }
 
     /**
      * Get music band's collection.
@@ -111,7 +124,7 @@ public class CollectionManager {
     }
 
     public void info(){
-        System.out.println("HashSet, " + creationDate.toString() + ", " + bands.size());
+        System.out.println("Тип коллекции: HashSet, Дата создания: " + creationDate.toString() + ", Количество элементов: " + bands.size());
     }
     /**
      * Get last generate id.

@@ -13,7 +13,6 @@ import java.util.EnumSet;
 public class DataCollector {
     public MusicBand wrap(){
         MusicBand musicBand = new MusicBand();
-        musicBand.setLocalCreationDate(LocalDateTime.now());
         collectName(musicBand);
         collectCoordinates(musicBand);
         collectNumberOfParticipants(musicBand);
@@ -83,7 +82,7 @@ public class DataCollector {
     public Long collectAllLong() {
         while (true) {
             try {
-                long capacity = Long.parseLong(collectValue());
+                long capacity = Long.parseLong(collectValue().trim());
                 return capacity;
             } catch (NullValueException ex) {
                 System.out.println("Значение этого поля не может быть пустым");
@@ -101,7 +100,7 @@ public class DataCollector {
     public Long collectLong() {
         while (true) {
             try {
-                long capacity = Long.parseLong(collectValue());
+                long capacity = Long.parseLong(collectValue().trim());
                 if (capacity <=0) {
                     System.out.println("Значение этого поля должно быть > 0");
                     continue;
@@ -134,7 +133,7 @@ public class DataCollector {
     public String collectString(){
         while(true){
             try {
-                return collectValue();
+                return collectValue().trim();
             }catch (NullValueException ex){
                 System.out.println("Значение этого поля не может быть пустым");
             }
@@ -149,7 +148,7 @@ public class DataCollector {
     public Integer collectInteger(){
         while(true){
             try {
-                int capacity = Integer.parseInt(collectValue());
+                int capacity = Integer.parseInt(collectValue().trim());
                 return capacity;
             }catch (NullValueException ex){
                 System.out.println("Значение этого поля не может быть пустым");
@@ -159,61 +158,6 @@ public class DataCollector {
         }
     }
 
-    /**
-     * Collect double from string.
-     *
-     * @return the double
-     */
-    public Double collectDouble(){
-        while(true){
-            try{
-                return Double.parseDouble(collectValue());
-            }catch (NullValueException ex){
-                System.out.println("Значение этого поля не может быть пустым");
-            }catch(IllegalArgumentException ex){
-                System.out.println("Введите тип double");
-            }
-        }
-    }
-
-    /**
-     * Collect float from string with restrictions.
-     *
-     * @return the float
-     */
-    public Float collectFloat(){
-        while(true){
-            try {
-                float price = Float.parseFloat(collectValue());
-                if(price<=0){
-                    System.out.println("Значение этого поля должно быть >= 0");
-                    continue;
-                }
-                return price;
-            }catch(NullValueException ex){
-                System.out.println("Значение этого поля не может быть пустым");
-            }catch(IllegalArgumentException ex){
-                System.out.println("Введите тип float, значение больше или равно 0");
-            }
-        }
-    }
-
-    /**
-     * Collect float without restrictions.
-     *
-     * @return the float
-     */
-    public float collectAllFloat(){
-        while(true){
-            try {
-                return Float.parseFloat(collectValue());
-            }catch(NullValueException ex){
-                System.out.println("Значение этого поля не может быть пустым");
-            }catch(IllegalArgumentException ex){
-                System.out.println("Введите тип float, значение больше или равно 0");
-            }
-        }
-    }
 
     /**
      * Collect ticket type.
@@ -223,7 +167,7 @@ public class DataCollector {
     public MusicGenre collectMusicGenre(){
         while(true){
             try{
-                return MusicGenre.valueOf(collectValue().toUpperCase());
+                return MusicGenre.valueOf(collectValue().toUpperCase().trim());
             }catch(NullValueException ex){
                 System.out.println("Значение этого поля не может быть пустым");
             }catch (IllegalArgumentException ex){

@@ -12,8 +12,13 @@ public class Clear extends Command {
     @Override
     public void execute() {
         super.execute();
-        cm.setCollection(new HashSet<MusicBand>());
-        System.out.println("Коллекция очищена...");
+        if(cm.getMusicBands().isEmpty()) {
+            System.out.println("Коллекция итак пустая, очищать нечего...");
+        }
+        else{
+            cm.setCollection(new HashSet<MusicBand>());
+            System.out.println("Коллекция очищена...");
+        }
     }
 
 }
