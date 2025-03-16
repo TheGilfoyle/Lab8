@@ -13,34 +13,8 @@ public class Coordinates {
     private Integer x;
     private long y;
 
-    public Coordinates (boolean b){
-        System.out.println("Начинается ввод координат");
-        while (true){
-            try {
-                System.out.println("Введите координату x:");
-                Long xxx = sc.nextLong();
-                this.x = Math.toIntExact(xxx);
-                break;
-            } catch (InputMismatchException e){
-                System.out.println("Поле введено неверно, попробуйте ещё раз");
-            } finally {
-                sc.nextLine();
-            }
-        }
-        while (true){
-            try {
-                System.out.println("Введите координату y:");
-                Long yyy = sc.nextLong();
-                this.y = yyy;
-                break;
-            } catch (InputMismatchException e){
-                System.out.println("Поле введено неверно, попробуйте ещё раз");
-            } finally {
-                sc.nextLine();
-            }
-        }
-        Coordinates c = new Coordinates(x,y);
-    }
+
+    public Coordinates() {}
 
     public Coordinates(Integer x, long y) {
         this.x = x;

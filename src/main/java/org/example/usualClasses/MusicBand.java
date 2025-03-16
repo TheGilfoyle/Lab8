@@ -20,6 +20,7 @@ public class MusicBand implements Comparable<MusicBand>{
     public MusicBand(String name, Coordinates coordinates, long numberOfParticipants, MusicGenre genre, Studio studio) {
         this.name = name;
         this.coordinates = coordinates;
+        this.creationDate = java.time.LocalDateTime.now();
         this.id=IDgen.generateID();
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
@@ -28,13 +29,8 @@ public class MusicBand implements Comparable<MusicBand>{
 
     public MusicBand() {
         this.id = IDgen.generateID();
-    }
-
-    public MusicBand(boolean bool){
         this.creationDate = java.time.LocalDateTime.now();
     }
-
-    // Геттеры и сеттеры
 
     @XmlElement
     public int getId() {
@@ -110,9 +106,9 @@ public class MusicBand implements Comparable<MusicBand>{
     public String toString() {
         return "MusicBand\n" +
                 "id=" + id +
+                "\ncreationDate= " + creationDate +
                 "\nname='" + name + '\'' +
                 "\ncoordinates=" + coordinates +
-                "\ncreationDate=" + creationDate +
                 "\nnumberOfParticipants=" + numberOfParticipants +
                 "\ngenre=" + genre +
                 "\nstudio=" + studio +

@@ -11,6 +11,7 @@ public class AddIfMin extends Command {
 
     @Override
     public void execute() {
+        super.execute();
         DataCollector collector = new DataCollector();
         MusicBand musicBand = collector.wrap();
         if (Main.cm.getMinMusicBand().compareTo(musicBand) > 0) {

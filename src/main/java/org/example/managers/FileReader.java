@@ -1,5 +1,6 @@
 package org.example.managers;
 
+import org.example.exceptions.InvalidDataException;
 import org.example.usualClasses.MusicBand;
 
 import javax.xml.bind.JAXBException;
@@ -29,7 +30,7 @@ public class FileReader {
 
         try {
             HashSet<MusicBand> musicBands = XMLParser.parseXML(filePath);
-            System.out.print("Файл успешно обработан. Количество групп: ");
+            System.out.print("Файл успешно обработан. Количество групп: " + musicBands.size());
             for (MusicBand musicBand : musicBands) {
                 System.out.println("ID: " + musicBand.getId());
                 System.out.println("Name: " + musicBand.getName());
@@ -42,6 +43,9 @@ public class FileReader {
             }
         } catch (JAXBException e) {
             System.out.println("Ошибка при парсинге XML: " + e.getMessage());
-        }
+        } catch (NullPointerException e) {
+        System.out.println("Ошибка в данных файла: " + e.getMessage());
     }
+
+}
 }
