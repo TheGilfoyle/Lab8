@@ -16,8 +16,6 @@ public class CollectionManager {
      */
     HashSet<MusicBand> bands = new HashSet<>();
 
-    private long lastId = 0;
-
     private LocalDateTime creationDate = LocalDateTime.now();
 
     /**
@@ -34,21 +32,12 @@ public class CollectionManager {
     }
 
     /**
-     * Get new id long. Automatically generation.
-     *
-     * @return the long
-     */
-    public long getNewId(){
-        return ++lastId;
-    }
-
-    /**
      * Get music band by ID of music band.
      *
      * @param id the ID
      * @return the music band
      */
-    public MusicBand getMusicBandByID(long id){
+    public MusicBand getMusicBandByID(long id) {
         for (MusicBand musicBand : bands) {
             if (musicBand.getId() == id) {
                 return musicBand;
@@ -66,7 +55,6 @@ public class CollectionManager {
     }
 
 
-
     /**
      * Remove music band from collection by ID.
      *
@@ -81,18 +69,18 @@ public class CollectionManager {
         }
     }
 
-    public void updateID(int id){
+    public void updateID(int id) {
         DataCollector dataCollector = new DataCollector();
         try {
             MusicBand band = getMusicBandByID(id);
-            if (band!=null) {
+            if (band != null) {
                 bands.remove(band);
                 IDgen.releaseID(id);
                 MusicBand musicBand = dataCollector.wrap();
                 bands.add(musicBand);
             }
-        }catch (IndexOutOfBoundsException ex){
-            System.out.println("Введите значение int > 0");return;
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Введите значение int > 0");
         }
 
     }
@@ -102,7 +90,7 @@ public class CollectionManager {
      *
      * @return the hashSet
      */
-    public HashSet<MusicBand> getMusicBands(){
+    public HashSet<MusicBand> getMusicBands() {
         return bands;
     }
 
@@ -111,10 +99,10 @@ public class CollectionManager {
      *
      * @param newColl the new coll
      */
-    public void setCollection(HashSet<MusicBand> newColl){
+    public void setCollection(HashSet<MusicBand> newColl) {
         this.bands = newColl;
-        lastId = getNewId();
     }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -124,24 +112,7 @@ public class CollectionManager {
         return s.toString();
     }
 
-    public void info(){
+    public void info() {
         System.out.println("Тип коллекции: HashSet, Дата создания: " + creationDate.toString() + ", Количество элементов: " + bands.size());
-    }
-    /**
-     * Get last generate id.
-     *
-     * @return the last id
-     */
-    public long getLastId() {
-        return lastId;
-    }
-
-    /**
-     * Set new last id, if last element has deleted.
-     *
-     * @param lastId the last id
-     */
-    public void setLastId(long lastId) {
-        this.lastId = lastId;
     }
 }

@@ -12,10 +12,15 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class FileWriter {
-    private static final String FILE_PATH = "resources/input.xml";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/musicBands.xml";
 
     public static void writeToFile(HashSet<MusicBand> musicBands) {
         File file = new File(FILE_PATH);
+        File directory = file.getParentFile();
+
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
 
         try (FileOutputStream fos = new FileOutputStream(file)) {
             JAXBContext jaxbContext = JAXBContext.newInstance(MusicBandWrapper.class);

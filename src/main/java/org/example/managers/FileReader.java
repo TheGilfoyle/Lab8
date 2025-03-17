@@ -1,11 +1,9 @@
 package org.example.managers;
 
-import org.example.exceptions.InvalidDataException;
 import org.example.usualClasses.MusicBand;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Scanner;
 

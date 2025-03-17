@@ -3,7 +3,6 @@ package org.example;
 import java.util.*;
 
 import org.example.commands.Command;
-import org.example.commands.History;
 import org.example.exceptions.IncorrectArgsNumber;
 import org.example.managers.CollectionManager;
 import org.example.managers.ConsoleManager;
@@ -14,7 +13,6 @@ import org.example.functional.Invoker;
 
 import javax.xml.bind.JAXBException;
 
-import static org.example.managers.FileReader.readAndParseFile;
 
 public class Main {
     public static CollectionManager cm = new CollectionManager();
@@ -27,21 +25,21 @@ public class Main {
 
     public static HistoryCollection hc = new HistoryCollection();
 
-//                public static void main(String[] args) {
-//                    try {
-//                        String filePath = "src/main/resources/input.xml";
-//                        HashSet<MusicBand> musicBands = XMLParser.parseXML(filePath);
+//    public static void main(String[] args) {
+//        try {
+//            String filePath = "src/main/resources/input.xml";
+//            HashSet<MusicBand> musicBands = XMLParser.parseXML(filePath);
 //
-//                        for (MusicBand band : musicBands) {
-//                            System.out.println(band);
-//                        }
-//                    } catch (JAXBException e) {
-//                        e.printStackTrace();
-//                    } catch (NullPointerException e) {
-//                        System.err.println("Файл input.xml не найден. Проверьте его расположение.");
-//                        e.printStackTrace();
-//                    }
-//                }
+//            for (MusicBand band : musicBands) {
+//                System.out.println(band);
+//            }
+//        } catch (JAXBException e) {
+//            e.printStackTrace();
+//        } catch (NullPointerException e) {
+//            System.err.println("Файл input.xml не найден. Проверьте его расположение.");
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void main(String[] args) {
         while (true) {
@@ -54,8 +52,6 @@ public class Main {
                 continue;
             }
             try {
-
-
                 String[] tokens = Arrays.stream(line.split(" "))
                         .filter(s -> !s.isEmpty())
                         .toArray(String[]::new);

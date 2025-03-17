@@ -6,7 +6,7 @@ import org.example.usualClasses.MusicBand;
 
 public class AddIfMin extends Command {
     public AddIfMin() {
-        super("add_if_min", "добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции",0);
+        super("add_if_min", "добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции", 0);
     }
 
     @Override
@@ -17,8 +17,7 @@ public class AddIfMin extends Command {
         if (Main.cm.getMinMusicBand() == null || Main.cm.getMinMusicBand().compareTo(musicBand) > 0) {
             cm.addBand(musicBand);
             System.out.println("Элемент добавлен в коллекцию...");
-        }
-        else{
+        } else {
             System.out.println("Этот элемент не имеет минимальное количество участников, поэтому он не был добавлен... :( ");
         }
     }

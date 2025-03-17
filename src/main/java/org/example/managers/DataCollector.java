@@ -4,11 +4,10 @@ import org.example.Main;
 import org.example.exceptions.NullValueException;
 import org.example.usualClasses.*;
 
-import java.time.LocalDateTime;
 import java.util.EnumSet;
 
 public class DataCollector {
-    public MusicBand wrap(){
+    public MusicBand wrap() {
         MusicBand musicBand = new MusicBand();
         collectName(musicBand);
         collectCoordinates(musicBand);
@@ -19,11 +18,11 @@ public class DataCollector {
         System.out.println("Данные успешно собраны");
         return musicBand;
     }
+
     /**
      * Collect name.
-     *
      */
-    public void collectName(MusicBand musicBand){
+    public void collectName(MusicBand musicBand) {
         System.out.println("Введите название группы: ");
         String name = collectString();
         musicBand.setName(name);
@@ -31,9 +30,8 @@ public class DataCollector {
 
     /**
      * Collect coordinates.
-     *
      */
-    public void collectCoordinates(MusicBand musicBand){
+    public void collectCoordinates(MusicBand musicBand) {
         System.out.println("Введите координату x (Integer)");
         Integer x = collectInteger();
         System.out.println("Введите координату y (long)");
@@ -43,34 +41,39 @@ public class DataCollector {
 
     /**
      * Collect coordinates.
-     *
      */
-    public void collectNumberOfParticipants(MusicBand musicBand){
+    public void collectNumberOfParticipants(MusicBand musicBand) {
         System.out.println("Введите количество участников группы: ");
         long numberOfParticipants = collectLong();
         musicBand.setNumberOfParticipants(numberOfParticipants);
     }
+
     /**
      * Collect genre.
-     *
      */
-    public void collectMusicGenre(MusicBand musicBand){
-        System.out.println("Введите музыкальный жанр из списка: ROCK, JAZZ, PUNK_ROCK ");
+    public void collectMusicGenre(MusicBand musicBand) {
+        System.out.println("Введите музыкальный жанр из списка (или оставьте строку пустой, чтобы установить null): ROCK, JAZZ, PUNK_ROCK");
         MusicGenre type = collectMusicGenre();
         musicBand.setGenre(type);
     }
+
 
     /**
      * Collect name.
      *
      */
     public void collectStudio(MusicBand musicBand){
-        System.out.println("Введите имя студии");
-        Studio studio = new Studio();
-        String studioName = collectString();
-        studio.setName(studioName);
-        musicBand.setStudio(studio);
+        System.out.println("Введите имя студии (или оставьте строку пустой, чтобы установить null):");
+        String input = Main.sc.nextLine().trim();
+        if (input.isEmpty()) {
+            musicBand.setStudio(null);
+        } else {
+            Studio studio = new Studio();
+            studio.setName(input);
+            musicBand.setStudio(studio);
+        }
     }
+
 
     /**
      * Collect Long from string.
@@ -164,14 +167,16 @@ public class DataCollector {
      */
     public MusicGenre collectMusicGenre(){
         while(true){
+            String input = Main.sc.nextLine();
+            if (input.trim().isEmpty()) {
+                return null;
+            }
             try{
-                return MusicGenre.valueOf(collectValue().toUpperCase().trim());
-            }catch(NullValueException ex){
-                System.out.println("Значение этого поля не может быть пустым");
-            }catch (IllegalArgumentException ex){
-                System.out.println("Введите одно из предложенных значений");
+                return MusicGenre.valueOf(input.toUpperCase().trim());
+            } catch (IllegalArgumentException ex){
+                System.out.println("Введите одно из предложенных значений (пустая строка, ROCK, JAZZ, PUNK_ROCK), не балуйтесь!...");
                 EnumSet<MusicGenre> genres = EnumSet.allOf(MusicGenre.class);
-                for (MusicGenre musicGenre:genres) {
+                for (MusicGenre musicGenre: genres) {
                     System.out.println(musicGenre);
                 }
             }

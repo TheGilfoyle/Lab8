@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Show extends Command {
     public Show() {
-        super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении",0);
+        super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении", 0);
     }
 
     @Override
@@ -18,6 +18,6 @@ public class Show extends Command {
             System.out.println(mb);
             amount++;
         }
-        System.out.println("Коллекция содержит " + amount + " элементов");
+        System.out.println("Количество элементов коллекции: " + amount);
     }
 }

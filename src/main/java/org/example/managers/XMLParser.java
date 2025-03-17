@@ -1,7 +1,6 @@
 package org.example.managers;
 
 import org.example.exceptions.InvalidDataException;
-import org.example.usualClasses.IDgen;
 import org.example.usualClasses.MusicBand;
 import org.example.usualClasses.MusicBandWrapper;
 

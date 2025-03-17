@@ -17,10 +17,10 @@ public class RemoveLower extends Command {
     @Override
     public void execute() {
 
-        try{
+        try {
             String amountOfParticipantsString = Main.console.getToken(1);
 
-            if (!amountOfParticipantsString.matches("^\\d+$")){
+            if (!amountOfParticipantsString.matches("^\\d+$")) {
                 throw new InvalidDataException("В качестве аргументов могут быть только числа, будьте добры, соблюдайте правила");
             }
             long amountOfParticipants = Long.parseLong(amountOfParticipantsString);
@@ -45,7 +45,7 @@ public class RemoveLower extends Command {
                 System.out.println("Удалено " + bandsToRemove.size() + " музыкальных групп с количеством участников меньше чем " + amountOfParticipants);
             }
             super.execute();
-        } catch (InvalidDataException e){
+        } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
         }
     }

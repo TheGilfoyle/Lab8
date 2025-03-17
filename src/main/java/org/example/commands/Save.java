@@ -5,7 +5,7 @@ import org.example.managers.FileWriter;
 
 public class Save extends Command {
     public Save() {
-        super("save", "сохранить коллекцию в файл",0);
+        super("save", "сохранить коллекцию в файл", 0);
     }
 
     @Override

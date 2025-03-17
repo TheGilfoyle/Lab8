@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Класс, представляющий музыкальную группу.
  */
 @XmlRootElement
-public class MusicBand implements Comparable<MusicBand>{
+public class MusicBand implements Comparable<MusicBand> {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -21,7 +21,7 @@ public class MusicBand implements Comparable<MusicBand>{
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = java.time.LocalDateTime.now();
-        this.id=IDgen.generateID();
+        this.id = IDgen.generateID();
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.studio = studio;

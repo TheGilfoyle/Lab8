@@ -2,10 +2,6 @@ package org.example.usualClasses;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import java.util.InputMismatchException;
-
-import static org.example.Main.sc;
-
 /**
  * Класс, представляющий координаты.
  */
@@ -14,7 +10,8 @@ public class Coordinates {
     private long y;
 
 
-    public Coordinates() {}
+    public Coordinates() {
+    }
 
     public Coordinates(Integer x, long y) {
         this.x = x;
@@ -40,7 +37,7 @@ public class Coordinates {
     }
 
     public String fileToString() {
-        return x +  "," + y;
+        return x + "," + y;
     }
 
     @Override
