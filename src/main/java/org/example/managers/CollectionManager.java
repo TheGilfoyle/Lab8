@@ -1,5 +1,6 @@
 package org.example.managers;
 
+import org.example.usualClasses.IDgen;
 import org.example.usualClasses.MusicBand;
 
 import java.time.LocalDateTime;
@@ -71,11 +72,12 @@ public class CollectionManager {
      *
      * @param id the ID
      */
-    public void removeByID(long id){
-        try {
-            bands.remove(getMusicBandByID(id));
-        }catch (IndexOutOfBoundsException ex){
-            System.out.println("Введите значение long >=0");
+    public void removeByID(int id) {
+        MusicBand musicBand = getMusicBandByID(id);
+        if (musicBand != null) {
+            bands.remove(musicBand);
+            IDgen.releaseID(musicBand.getId());
+            System.out.println("Элемент с ID: " + id + " удалён...");
         }
     }
 
@@ -85,15 +87,14 @@ public class CollectionManager {
             MusicBand band = getMusicBandByID(id);
             if (band!=null) {
                 bands.remove(band);
-            }
-            else {
-                return;
+                IDgen.releaseID(id);
+                MusicBand musicBand = dataCollector.wrap();
+                bands.add(musicBand);
             }
         }catch (IndexOutOfBoundsException ex){
             System.out.println("Введите значение int > 0");return;
         }
-            MusicBand musicBand = dataCollector.wrap();
-            bands.add(musicBand);
+
     }
 
     /**

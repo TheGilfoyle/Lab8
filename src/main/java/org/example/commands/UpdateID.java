@@ -1,6 +1,7 @@
 package org.example.commands;
 
 import org.example.Main;
+import org.example.exceptions.InvalidDataException;
 import org.example.managers.DataCollector;
 import org.example.usualClasses.MusicBand;
 
@@ -11,8 +12,17 @@ public class UpdateID extends Command {
 
     @Override
     public void execute() {
-        super.execute();
-        int id = Integer.parseInt(Main.console.getToken(1));
-        cm.updateID(id);
+
+        try{
+            String updatingID = Main.console.getToken(1);
+            if (!updatingID.matches("^\\d+$")){
+                throw new InvalidDataException("В качестве аргументов могут быть только числа long больше ноля, будьте добры, соблюдайте правила");
+            }
+            int id = Integer.parseInt(updatingID);
+            cm.updateID(id);
+            super.execute();
+        } catch (InvalidDataException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

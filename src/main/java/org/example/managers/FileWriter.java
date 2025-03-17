@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class FileWriter {
-    private static final String FILE_PATH = "resources/musicBands.xml";
+    private static final String FILE_PATH = "resources/input.xml";
 
     public static void writeToFile(HashSet<MusicBand> musicBands) {
         File file = new File(FILE_PATH);

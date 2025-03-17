@@ -3,6 +3,8 @@ package org.example.commands;
 import org.example.Main;
 import org.example.usualClasses.MusicBand;
 
+import java.util.HashSet;
+
 public class FilterLessThanStudio extends Command {
     public FilterLessThanStudio() {
         super("filter_less_than_studio", "вывести элементы, значение поля studio которых меньше заданного",1);
@@ -13,11 +15,23 @@ public class FilterLessThanStudio extends Command {
         super.execute();
         String nameStudio = Main.console.getToken(1);
         int nameStudioLength = nameStudio.length();
+        int count =0;
         for (MusicBand musicBand: cm.getMusicBands()) {
             if (musicBand.getStudio().getName().length() < nameStudioLength) {
                 System.out.println(musicBand);
+                count++;
             }
         }
-        System.out.println("Вот все элементы значений студии которых меньше чем то что ты написал");
+        if(count==0 || cm.getMusicBands().isEmpty()) {
+            if (count==0 && !cm.getMusicBands().isEmpty()) { System.out.println("В коллекции нет элементов, длина имени студии которых меньше, чем длина имени студии \"" + nameStudio+ "\"");}
+            else System.out.println("Коллекция в принципе не содержит элементов...");
+        }
+        else{
+            HashSet<MusicBand> musicBands = cm.getMusicBands();
+            for (MusicBand mb : musicBands) {
+                System.out.println(mb);
+            }
+            System.out.println("Вот все элементы, длина имени студии которых меньше чем \"" + nameStudio + "\"");
+        }
     }
 }

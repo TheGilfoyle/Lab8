@@ -10,8 +10,8 @@ public class Save extends Command {
 
     @Override
     public void execute() {
-        super.execute();
         FileWriter.writeToFile(Main.cm.getMusicBands());
+        super.execute();
         System.out.println("Элементы успешно сохранены в файл");
     }
 }

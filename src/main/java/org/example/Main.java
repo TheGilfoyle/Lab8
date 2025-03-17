@@ -44,14 +44,18 @@ public class Main {
 //                }
 
     public static void main(String[] args) {
-        System.out.print("Введите команду: ");
-        while (sc.hasNext()) {
+        while (true) {
+            System.out.print("Введите команду: ");
+            if (!sc.hasNextLine()) {
+                break;
+            }
+            String line = sc.nextLine().trim();
+            if (line.isEmpty()) {
+                continue;
+            }
             try {
-                String line = sc.nextLine().trim();
-                if (line.isEmpty()) {
-                    System.out.print("Введите команду: ");
-                    continue;
-                }
+
+
                 String[] tokens = Arrays.stream(line.split(" "))
                         .filter(s -> !s.isEmpty())
                         .toArray(String[]::new);
@@ -72,14 +76,12 @@ public class Main {
                 if (tokens.length > 2)
                     if (command.getArgsAmount() != tokens.length - 1)
                         throw new IncorrectArgsNumber(command.getArgsAmount());
-                System.out.print("Введите команду: ");
             } catch (NullPointerException e) {
                 System.out.println("Команда неизвестная, введите другую");
-                System.out.print("Введите команду: ");
             } catch (IncorrectArgsNumber e) {
                 System.out.println(e.getMessage());
                 System.out.println("Попробуйте ещё раз");
-                System.out.print("Введите команду: ");
+
             }
         }
     }

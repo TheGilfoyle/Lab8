@@ -14,7 +14,7 @@ public class AddIfMin extends Command {
         super.execute();
         DataCollector collector = new DataCollector();
         MusicBand musicBand = collector.wrap();
-        if (Main.cm.getMinMusicBand().compareTo(musicBand) > 0 || Main.cm.getMinMusicBand() == null) {
+        if (Main.cm.getMinMusicBand() == null || Main.cm.getMinMusicBand().compareTo(musicBand) > 0) {
             cm.addBand(musicBand);
             System.out.println("Элемент добавлен в коллекцию...");
         }

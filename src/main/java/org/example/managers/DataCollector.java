@@ -2,10 +2,7 @@ package org.example.managers;
 
 import org.example.Main;
 import org.example.exceptions.NullValueException;
-import org.example.usualClasses.Coordinates;
-import org.example.usualClasses.MusicBand;
-import org.example.usualClasses.MusicGenre;
-import org.example.usualClasses.Studio;
+import org.example.usualClasses.*;
 
 import java.time.LocalDateTime;
 import java.util.EnumSet;
@@ -18,6 +15,7 @@ public class DataCollector {
         collectNumberOfParticipants(musicBand);
         collectMusicGenre(musicBand);
         collectStudio(musicBand);
+        IDgen.generateID();
         System.out.println("Данные успешно собраны");
         return musicBand;
     }

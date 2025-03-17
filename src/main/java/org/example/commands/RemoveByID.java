@@ -1,6 +1,8 @@
 package org.example.commands;
 
 import org.example.Main;
+import org.example.exceptions.InvalidDataException;
+
 
 public class RemoveByID extends Command {
     public RemoveByID() {
@@ -9,10 +11,18 @@ public class RemoveByID extends Command {
 
     @Override
     public void execute() {
-        super.execute();
-        int id = Integer.parseInt(Main.console.getToken(1));
-        cm.removeByID(id);
-        System.out.println("Элемент с ID: " + id + " удалён...");
+        try{
+            String removingID = Main.console.getToken(1);
+
+            if (!removingID.matches("^\\d+$")){
+                throw new InvalidDataException("В качестве аргументов могут быть только числа long больше ноля, будьте добры, соблюдайте правила");
+            }
+            int id = Integer.parseInt(removingID);
+            cm.removeByID(id);
+            super.execute();
+        } catch (InvalidDataException e){
+            System.out.println(e.getMessage());
+        }
     }
 
 }
