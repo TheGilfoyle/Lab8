@@ -3,11 +3,23 @@ package org.example.commands;
 import org.example.Main;
 import org.example.usualClasses.MusicBand;
 
+/**
+ * Класс команды filter_less_than_studio
+ *
+ */
 public class FilterLessThanStudio extends Command {
+    /**
+     * Конструктор класса команды filter_less_than_studio
+     *
+     */
     public FilterLessThanStudio() {
         super("filter_less_than_studio", "вывести элементы, значение поля studio которых меньше заданного", 1);
     }
 
+    /**
+     * Переопределенный метод родительского класса
+     *
+     */
     @Override
     public void execute() {
         super.execute();

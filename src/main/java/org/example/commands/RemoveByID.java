@@ -3,12 +3,23 @@ package org.example.commands;
 import org.example.Main;
 import org.example.exceptions.InvalidDataException;
 
-
+/**
+ * Класс команды "remove_by_id"
+ *
+ */
 public class RemoveByID extends Command {
+    /**
+     * Конструктор команды "remove_by_id"
+     *
+     */
     public RemoveByID() {
         super("remove_by_id", "удалить элемент из коллекции по его id", 1);
     }
 
+    /**
+     * Метод, исполняющий команду
+     *
+     */
     @Override
     public void execute() {
         try {

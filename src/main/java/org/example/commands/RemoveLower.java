@@ -7,9 +7,20 @@ import org.example.usualClasses.MusicBand;
 
 import java.util.*;
 
+/**
+ * Класс команды remove_lower
+ *
+ */
 public class RemoveLower extends Command {
+    /**
+     * Конструктор
+     *
+     */
     private final Comparator<MusicBand> comparator = new ComparatorOfNumberOfParticipants();
-
+    /**
+     * Конструктор команды remove_lower
+     *
+     */
     public RemoveLower() {
         super("remove_lower", "удалить из коллекции все элементы, меньшие, чем заданный", 1);
     }

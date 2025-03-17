@@ -1,16 +1,21 @@
 package org.example.commands;
 
+/**
+ * Класс команды Exit
+ *
+ */
 public class Exit extends Command {
     /**
-     * Instantiates a new Exit.
+     * Конструктор класса
+     *
      */
     public Exit() {
         super("exit", "завершить программу (без сохранения в файл)", 0);
     }
 
-
     /**
-     * Command to leave from app.
+     * Метод, выполняющий команду
+     *
      */
     @Override
     public void execute() {

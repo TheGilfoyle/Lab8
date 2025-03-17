@@ -3,22 +3,22 @@
         <name>Band A</name>
         <coordinates>
             <x>4</x>
-            <y>20</y>
+            <y>4</y>
         </coordinates>
         <numberOfParticipants>5</numberOfParticipants>
-        <genre>ROCK</genre>
+        <genre>rock</genre>
         <studio>
-            <name>Studio One</name>
+            <name></name>
         </studio>
     </musicBand>
     <musicBand>
         <name>Band B</name>
         <coordinates>
-            <x>15</x>
-            <y>25</y>
+            <x>-5</x>
+            <y>-5</y>
         </coordinates>
         <numberOfParticipants>3</numberOfParticipants>
-        <genre>JAZZ</genre>
+        <genre>ROCK</genre>
         <studio>
             <name>Studio Two</name>
         </studio>

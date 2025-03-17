@@ -2,6 +2,7 @@ package org.example.usualClasses;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.time.LocalDateTime;
 
 /**
@@ -96,6 +97,14 @@ public class MusicBand implements Comparable<MusicBand> {
 
     public void setLocalCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @XmlElement(name = "genre")
+    private String genreString;
+
+    @XmlTransient
+    public String getGenreString() {
+        return genreString;
     }
 
     public String fileToString() {

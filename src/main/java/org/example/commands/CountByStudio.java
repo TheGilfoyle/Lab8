@@ -4,11 +4,28 @@ package org.example.commands;
 import org.example.Main;
 import org.example.usualClasses.MusicBand;
 
+/**
+ * Класс команды "count_by_studio"
+ * Количество групп с заданной студией
+ *
+ */
 public class CountByStudio extends Command {
+    /**
+     * Конструктор класса
+     * Устанавливает имя команды и ее описание
+     * @param name имя команды
+     * @param description описание команды
+     *
+     */
     public CountByStudio() {
         super("count_by_studio", "вывести количество элементов, значение поля studio которых равно заданному", 1);
     }
 
+    /**
+     * Метод для выполнения команды
+     * Выводит количество групп с заданной студией
+     *
+     */
     @Override
     public void execute() {
         super.execute();

@@ -4,11 +4,21 @@ import org.example.Main;
 import org.example.managers.DataCollector;
 import org.example.usualClasses.MusicBand;
 
+/**
+ * Класс для команды добавления элемента, если он минимальный
+ */
 public class AddIfMin extends Command {
+    /**
+     * Конструктор команды
+     */
     public AddIfMin() {
         super("add_if_min", "добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции", 0);
     }
 
+    /**
+     * Метод, выполняющий команду
+     * @param args аргументы команды
+     */
     @Override
     public void execute() {
         super.execute();
