@@ -3,8 +3,6 @@ package org.example.managers;
 import org.example.exceptions.InvalidDataException;
 import org.example.usualClasses.MusicBand;
 import org.example.usualClasses.MusicBandWrapper;
-import org.example.usualClasses.Coordinates;
-import org.example.usualClasses.IDgen;
 import org.example.usualClasses.MusicGenre;
 
 import javax.xml.bind.JAXBContext;
@@ -44,12 +42,22 @@ public class XMLParser {
 
 
 
-    public static HashSet<MusicBand> parseXML(String filePath) throws JAXBException {
+    public static HashSet<MusicBand> parseXML(String filePath) throws JAXBException, InvalidDataException {
         File file = new File(filePath);
         JAXBContext jaxbContext = JAXBContext.newInstance(MusicBandWrapper.class);
 
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        MusicBandWrapper wrapper = (MusicBandWrapper) jaxbUnmarshaller.unmarshal(file);
+        MusicBandWrapper wrapper;
+        try {
+            wrapper = (MusicBandWrapper) jaxbUnmarshaller.unmarshal(file);
+        } catch (JAXBException e) {
+            throw new JAXBException("Ошибка при чтении XML-файла: файл может быть поврежден или не соответствует ожидаемой структуре.", e);
+        }
+
+        if (wrapper == null || wrapper.getMusicBands() == null) {
+            throw new InvalidDataException("Файл не содержит данных или данные не соответствуют ожидаемой структуре.");
+        }
+
         HashSet<MusicBand> musicBands = wrapper.getMusicBands();
 
         int invalidCount = 0;

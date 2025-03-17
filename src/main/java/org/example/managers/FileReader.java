@@ -1,5 +1,6 @@
 package org.example.managers;
 
+import org.example.exceptions.InvalidDataException;
 import org.example.usualClasses.MusicBand;
 
 import javax.xml.bind.JAXBException;
@@ -41,9 +42,10 @@ public class FileReader {
             }
         } catch (JAXBException e) {
             System.out.println("Ошибка при парсинге XML: " + e.getMessage());
-        } catch (NullPointerException e) {
-        System.out.println("Ошибка в данных файла: " + e.getMessage());
+        } catch (InvalidDataException e) {
+            System.out.println("Ошибка в данных файла: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Неизвестная ошибка: " + e.getMessage());
+        }
     }
-
-}
 }

@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.example.commands.Command;
 import org.example.exceptions.IncorrectArgsNumber;
+import org.example.exceptions.InvalidDataException;
 import org.example.managers.CollectionManager;
 import org.example.managers.ConsoleManager;
 import org.example.managers.HistoryCollection;
@@ -37,6 +38,9 @@ public class Main {
             e.printStackTrace();
         } catch (NullPointerException e) {
             System.err.println("Файл input.xml не найден. Проверьте его расположение.");
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            System.err.println("Ошибка в данных файла: " + e.getMessage());
             e.printStackTrace();
         }
     }
