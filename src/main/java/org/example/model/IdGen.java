@@ -7,7 +7,19 @@ import java.util.HashSet;
  * Позволяет создавать, регистрировать и освобождать идентификаторы.
  */
 public class IdGen {
+    /**
+     * Конструктор по умолчанию.
+     */
+    public IdGen() {
+    }
+
+    /**
+     * Счётчик для генерации уникальных ID.
+     */
     private static int idCounter = 1;
+    /**
+     * Множество использованных ID.
+     */
     private static HashSet<Integer> usedIDs = new HashSet<>();
 
     /**

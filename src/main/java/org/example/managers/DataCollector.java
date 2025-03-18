@@ -12,9 +12,14 @@ import java.util.NoSuchElementException;
  */
 public class DataCollector {
     /**
+     * Конструктор класса
+     */
+    public DataCollector() {
+    }
+    /**
      * Обертка для сбора данных
      *
-     * @return
+     * @return объект с данными
      */
     public MusicBand wrap() {
         MusicBand musicBand = new MusicBand();
@@ -36,7 +41,7 @@ public class DataCollector {
     /**
      * Сбор названия группы
      *
-     * @param musicBand
+     * @param musicBand музыкальная группа
      */
     public void collectName(MusicBand musicBand) {
         System.out.println("Введите название группы: ");
@@ -47,7 +52,7 @@ public class DataCollector {
     /**
      * Сбор координат
      *
-     * @param musicBand
+     * @param musicBand музыкальная группа
      */
     public void collectCoordinates(MusicBand musicBand) {
         System.out.println("Введите координату x (Integer)");
@@ -60,7 +65,7 @@ public class DataCollector {
     /**
      * Сбор числа участников
      *
-     * @param musicBand
+     * @param musicBand музыкальная группа
      */
     public void collectNumberOfParticipants(MusicBand musicBand) {
         System.out.println("Введите количество участников группы: ");
@@ -71,7 +76,7 @@ public class DataCollector {
     /**
      * Сбор музыкального жанра
      *
-     * @param musicBand
+     * @param musicBand музыкальная группа
      */
     public void collectMusicGenre(MusicBand musicBand) {
         System.out.println("Введите музыкальный жанр из списка (или оставьте строку пустой, чтобы установить null): ROCK, JAZZ, PUNK_ROCK");
@@ -82,6 +87,7 @@ public class DataCollector {
 
     /**
      * Сбор студии
+     * @param musicBand музыкальная группа
      */
     public void collectStudio(MusicBand musicBand) {
         System.out.println("Введите имя студии (или оставьте строку пустой, чтобы установить null):");
@@ -99,7 +105,7 @@ public class DataCollector {
     /**
      * Сбор всех Long чисел
      *
-     * @return
+     * @return Long число
      */
     public Long collectAllLong() {
         while (true) {
@@ -117,7 +123,7 @@ public class DataCollector {
     /**
      * Сбор всех Long чисел больших 0
      *
-     * @return
+     * @return Long число
      */
     public Long collectLong() {
         while (true) {
@@ -139,9 +145,9 @@ public class DataCollector {
     /**
      * Сбор всех значений
      *
-     * @return
-     * @throws NullValueException
-     * @throws IllegalArgumentException
+     * @return Строка без пробелов в начале и в конце
+     * @throws NullValueException Если введен пустой ответ
+     * @throws IllegalArgumentException Если введен не long
      */
     public String collectValue() throws NullValueException, IllegalArgumentException {
         String value = Main.sc.nextLine();
@@ -154,7 +160,7 @@ public class DataCollector {
     /**
      * Сбор всех строк
      *
-     * @return
+     * @return Строка без пробелов в начале и в конце
      */
     public String collectString() {
         while (true) {
@@ -169,7 +175,7 @@ public class DataCollector {
     /**
      * Сбор всех Integer чисел
      *
-     * @return
+     * @return Integer число
      */
     public Integer collectInteger() {
         while (true) {
@@ -188,7 +194,7 @@ public class DataCollector {
     /**
      * Сбор всех музыкальных жанров
      *
-     * @return
+     * @return Музыкальный жанр
      */
     public MusicGenre collectMusicGenre() {
         while (true) {

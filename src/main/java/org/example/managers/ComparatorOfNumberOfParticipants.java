@@ -9,12 +9,17 @@ import java.util.Comparator;
  */
 public class ComparatorOfNumberOfParticipants implements Comparator<MusicBand> {
     /**
+     * Конструктор класса
+     */
+    public ComparatorOfNumberOfParticipants() {
+        super();
+    }
+    /**
      * Сравнивает два объекта типа {@link MusicBand} по количеству участников группы.
      *
      * @param o1 первый объект для сравнения
      * @param o2 второй объект для сравнения
-     * @return отрицательное число, если количество участников группы первого объекта меньше,q
-     * @return
+     * @return отрицательное число, если количество участников группы первого объекта меньше
      */
     @Override
     public int compare(MusicBand o1, MusicBand o2) {

@@ -27,8 +27,8 @@ public class Coordinates {
     /**
      * Конструктор с параметрами.
      *
-     * @param x
-     * @param y
+     * @param x координата X
+     * @param y координата Y
      */
     public Coordinates(Integer x, long y) {
         this.x = x;
@@ -38,7 +38,7 @@ public class Coordinates {
     /**
      * Получение координаты X.
      *
-     * @return
+     * @return Возвращает координату X
      */
     @XmlElement
     public Integer getX() {
@@ -48,7 +48,7 @@ public class Coordinates {
     /**
      * Установка координаты X.
      *
-     * @param x
+     * @param x Координата X
      */
     public void setX(Integer x) {
         this.x = x;
@@ -57,7 +57,7 @@ public class Coordinates {
     /**
      * Получение координаты Y.
      *
-     * @return
+     * @return Возвращает координату Y
      */
     @XmlElement
     public long getY() {
@@ -67,7 +67,7 @@ public class Coordinates {
     /**
      * Установка координаты Y.
      *
-     * @param y
+     * @param y Координата Y
      */
     public void setY(long y) {
         this.y = y;
@@ -87,7 +87,7 @@ public class Coordinates {
     /**
      * Конвертация строковых значений координат в числовые значения.
      *
-     * @throws InvalidDataException
+     * @throws InvalidDataException Если значения координат не могут быть преобразованы в числовые значения.
      */
     public void convertCoordinates() throws InvalidDataException {
         if (xString == null || xString.trim().isEmpty()) {
@@ -113,7 +113,7 @@ public class Coordinates {
     /**
      * Получение строкового значения координаты X.
      *
-     * @return
+     * @return Возвращает строковое значение координаты X
      */
     @XmlTransient
     public String getXString() {
@@ -123,7 +123,7 @@ public class Coordinates {
     /**
      * Получение строкового значения координаты Y.
      *
-     * @return
+     * @return Возвращает строковое значение координаты Y
      */
     @XmlTransient
     public String getYString() {
@@ -133,7 +133,7 @@ public class Coordinates {
     /**
      * Перевод координат в строку для файла.
      *
-     * @return
+     * @return  Возвращает координаты в виде строки для файла
      */
     public String fileToString() {
         return x + "," + y;
@@ -142,7 +142,7 @@ public class Coordinates {
     /**
      * Перевод координат в строку для файла.
      *
-     * @return
+     * @return Возвращает координаты в виде строки
      */
     @Override
     public String toString() {

@@ -12,10 +12,16 @@ import java.util.Arrays;
  * Команда для выполнения скрипта из файла.
  */
 public class ExecuteScript extends Command {
+    /**
+     * Конструктор класса ExecuteScript.
+     */
     public ExecuteScript() {
         super("execute_script", "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.", 1);
     }
 
+    /**
+     * Метод для выполнения команды.
+     */
     @Override
     public void execute() {
 //        try {

@@ -29,9 +29,9 @@ public abstract class Command implements Commander {
     /**
      * Конструктор класса.
      *
-     * @param name
-     * @param description
-     * @param argsAmount
+     * @param name команды.
+     * @param description описание команды.
+     * @param argsAmount количество аргументов команды.
      */
     public Command(String name, String description, int argsAmount) {
         this.nameOfCommand = name;
@@ -42,7 +42,7 @@ public abstract class Command implements Commander {
     /**
      * Возвращает имя команды.
      *
-     * @return
+     * @return Возвращает имя команды.
      */
     public String getNameOfCommand() {
         return nameOfCommand;
@@ -51,7 +51,7 @@ public abstract class Command implements Commander {
     /**
      * Возвращает описание команды.
      *
-     * @return
+     * @return Возвращает описание команды.
      */
     public String getDescription() {
         return description;
@@ -59,7 +59,7 @@ public abstract class Command implements Commander {
 
     /**
      * Возвращает количество аргументов команды.
-     *
+     * @return Возвращает количество аргументов команды.
      */
     public int getArgsAmount() {
         return argsAmount;

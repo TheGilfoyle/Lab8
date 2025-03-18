@@ -5,11 +5,21 @@ import org.example.exceptions.InvalidDataException;
 import org.example.model.MusicBand;
 import org.example.model.MusicGenre;
 
+/**
+ * Класс команды "count_greater_than_genre"
+ */
 public class CountGreaterThanGenre extends Command {
+    /**
+     * Конструктор класса
+     */
     public CountGreaterThanGenre() {
         super("count_greater_than_genre", "вывести количество элементов, значение поля genre которых больше заданного", 1);
     }
 
+    /**
+     * Проверяет правильность аргумента команды
+     *
+     */
     @Override
     public void execute() {
         long counter = 0;

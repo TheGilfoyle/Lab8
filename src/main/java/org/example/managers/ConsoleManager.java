@@ -2,8 +2,14 @@ package org.example.managers;
 
 /**
  * Класс для работы с консолью
+ *
  */
 public class ConsoleManager {
+    /**
+     * Конструктор класса
+     */
+    public ConsoleManager() {
+    }
     /**
      * Массив токенов
      */
@@ -12,7 +18,7 @@ public class ConsoleManager {
     /**
      * Получить массив токенов
      *
-     * @return
+     * @return Возвращает массив токенов
      */
     public String[] getTokens() {
         return tokens;
@@ -21,8 +27,8 @@ public class ConsoleManager {
     /**
      * Получить токен по индексу
      *
-     * @param i
-     * @return
+     * @param i индекс токена
+     * @return Возвращает токен в виде строки
      */
     public String getToken(int i) {
         return tokens[i];
@@ -31,7 +37,7 @@ public class ConsoleManager {
     /**
      * Установить массив токенов
      *
-     * @param tokens
+     * @param tokens токены в виде массива строк
      */
     public void setTokens(String[] tokens) {
         this.tokens = tokens;

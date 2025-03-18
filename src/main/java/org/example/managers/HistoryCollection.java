@@ -9,15 +9,13 @@ import java.util.Deque;
 public class HistoryCollection {
     /**
      * Коллекция команд
-     *
-     * @param <String> Команды
      */
     Deque<String> historyCollection = new ArrayDeque<>(11);
 
     /**
      * Добавляет команду в коллекцию
      *
-     * @param command
+     * @param command команда
      */
     public void addCommand(String command) {
         if (historyCollection.size() >= 11) {
@@ -29,7 +27,7 @@ public class HistoryCollection {
     /**
      * Возвращает коллекцию команд
      *
-     * @return
+     * @return Возвращает коллекцию команд
      */
     public Deque<String> getHistoryCollection() {
         return historyCollection;

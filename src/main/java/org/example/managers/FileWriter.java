@@ -16,6 +16,11 @@ import java.util.HashSet;
  */
 public class FileWriter {
     /**
+     * Конструктор по умолчанию.
+     */
+    public FileWriter() {
+    }
+    /**
      * Путь к файлу.
      * Это поле должно быть изменено в зависимости от желаемого пути к файлу.
      */
@@ -24,7 +29,7 @@ public class FileWriter {
     /**
      * Метод для записи коллекции в файл.
      *
-     * @param musicBands
+     * @param musicBands коллекция для записи
      */
     public static void writeToFile(HashSet<MusicBand> musicBands) {
         File file = new File(FILE_PATH);

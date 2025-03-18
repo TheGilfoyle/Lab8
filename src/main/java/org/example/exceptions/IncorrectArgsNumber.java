@@ -13,7 +13,7 @@ public class IncorrectArgsNumber extends RuntimeException {
     /**
      * Конструктор класса
      *
-     * @param number
+     * @param number количество аргументов
      */
     public IncorrectArgsNumber(int number) {
         this.number = number;

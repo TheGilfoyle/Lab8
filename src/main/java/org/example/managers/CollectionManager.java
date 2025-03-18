@@ -16,13 +16,11 @@ public class CollectionManager {
     /**
      * Хэшсет коллекции, в котором хранятся элементы
      *
-     * @param <MusicBand> коллекция, в которой хранятся элементы
      */
     HashSet<MusicBand> bands = new HashSet<>();
     /**
      * Дата создания коллекции
      *
-     * @see LocalDateTime
      */
     private LocalDateTime creationDate = LocalDateTime.now();
 
@@ -35,8 +33,7 @@ public class CollectionManager {
     /**
      * Добавляет элемент в коллекцию
      *
-     * @param musicBand элемент для добавления
-     * @param band
+     * @param band элемент для добавления
      */
     public void addBand(MusicBand band) {
         bands.add(band);
@@ -45,8 +42,8 @@ public class CollectionManager {
     /**
      * Выводит информацию о коллекции
      *
-     * @param id
-     * @return
+     * @param id элемента
+     * @return Возвращает музыкальную группу с заданным ID
      */
     public MusicBand getMusicBandByID(long id) {
         for (MusicBand musicBand : bands) {
@@ -59,9 +56,9 @@ public class CollectionManager {
     }
 
     /**
-     * Удаляет все элементы коллекции
+     * Получает минимальную музыкальную группу из коллекции
      *
-     * @return
+     * @return Возвращает музыкальную группу с минимальным количеством участников
      */
     public MusicBand getMinMusicBand() {
         if (bands.isEmpty()) {
@@ -74,7 +71,8 @@ public class CollectionManager {
     /**
      * Удаляет все элементы коллекции
      *
-     * @param id
+     * @param id ID элемента, который нужно удалить
+     *
      */
     public void removeByID(int id) {
         MusicBand musicBand = getMusicBandByID(id);
@@ -88,7 +86,7 @@ public class CollectionManager {
     /**
      * Выводит информацию о коллекции
      *
-     * @param id
+     * @param id ID элемента, который нужно обновить
      */
     public void updateID(int id) {
         DataCollector dataCollector = new DataCollector();
@@ -109,7 +107,7 @@ public class CollectionManager {
     /**
      * Выводит информацию о коллекции
      *
-     * @return
+     * @return Возвращает коллекцию музыкальных групп
      */
     public HashSet<MusicBand> getMusicBands() {
         return bands;
@@ -118,7 +116,7 @@ public class CollectionManager {
     /**
      * Выводит информацию о коллекции
      *
-     * @param newColl
+     * @param newColl новая коллекция
      */
     public void setCollection(HashSet<MusicBand> newColl) {
         this.bands = newColl;
@@ -127,7 +125,7 @@ public class CollectionManager {
     /**
      * Выводит информацию о коллекции
      *
-     * @return
+     * @return Возвращает коллекцию в формате строки
      */
     @Override
     public String toString() {

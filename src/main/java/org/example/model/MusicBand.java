@@ -44,11 +44,11 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Конструктор для создания музыкальной группы
      *
-     * @param name
-     * @param coordinates
-     * @param numberOfParticipants
-     * @param genre
-     * @param studio
+     * @param name название
+     * @param coordinates координаты
+     * @param numberOfParticipants количество участников
+     * @param genre жанр
+     * @param studio студия
      */
     public MusicBand(String name, Coordinates coordinates, long numberOfParticipants, MusicGenre genre, Studio studio) {
         this.name = name;
@@ -71,7 +71,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения ID музыкальной группы
      *
-     * @return
+     * @return Возвращает ID
      */
     @XmlElement
     public int getId() {
@@ -81,7 +81,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки ID музыкальной группы
      *
-     * @param id
+     * @param id ID
      */
     public void setId(int id) {
         this.id = id;
@@ -90,7 +90,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения названия музыкальной группы
      *
-     * @return
+     * @return название музыкальной группы
      */
     @XmlElement
     public String getName() {
@@ -100,7 +100,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки названия музыкальной группы
      *
-     * @param name
+     * @param name имя
      */
     public void setName(String name) {
         this.name = name;
@@ -109,7 +109,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения координат музыкальной группы
      *
-     * @return
+     * @return координаты
      */
     @XmlElement
     public Coordinates getCoordinates() {
@@ -119,7 +119,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки координат музыкальной группы
      *
-     * @param coordinates
+     * @param coordinates координаты
      */
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
@@ -128,7 +128,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения количества участников музыкальной группы
      *
-     * @return
+     * @return число участников
      */
     @XmlElement
     public long getNumberOfParticipants() {
@@ -138,7 +138,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки количества участников музыкальной группы
      *
-     * @param numberOfParticipants
+     * @param numberOfParticipants количество участников
      */
     public void setNumberOfParticipants(long numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
@@ -147,7 +147,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения жанра музыкальной группы
      *
-     * @return
+     * @return Музыкальный жанр из enum
      */
     @XmlElement
     public MusicGenre getGenre() {
@@ -157,7 +157,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки жанра музыкальной группы
      *
-     * @param genre
+     * @param genre музыкальный жанр
      */
     public void setGenre(MusicGenre genre) {
         this.genre = genre;
@@ -166,7 +166,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения студии музыкальной группы
      *
-     * @return
+     * @return Возвращает студию
      */
     @XmlElement
     public Studio getStudio() {
@@ -176,7 +176,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки студии музыкальной группы
      *
-     * @param studio
+     * @param studio студия
      */
     public void setStudio(Studio studio) {
         this.studio = studio;
@@ -185,7 +185,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения даты создания музыкальной группы
      *
-     * @return
+     * @return Возвращает время создания
      */
     @XmlElement
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
@@ -196,7 +196,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сеттер для установки даты создания музыкальной группы
      *
-     * @param creationDate
+     * @param creationDate дата создания
      */
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
@@ -211,7 +211,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Геттер для получения жанра музыкальной группы в виде строки
      *
-     * @return
+     * @return жанр преобразованный в жанр
      */
     @XmlTransient
     public String getGenreString() {
@@ -221,7 +221,7 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Имя студии и координаты музыкальной группы в виде строки
      *
-     * @return
+     * @return строковое представление в файл
      */
     public String fileToString() {
         return name + "," + coordinates.fileToString();
@@ -229,6 +229,7 @@ public class MusicBand implements Comparable<MusicBand> {
 
     /**
      * Переопределение метода toString для вывода музыкальной группы в виде строки
+     * @return возвращает строковое представление музыкальной группы
      */
     @Override
     public String toString() {
@@ -246,8 +247,8 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Сравнение музыкальных групп по количеству участников
      *
-     * @param o the object to be compared.
-     * @return
+     * @param o объект сравнения, Музыкальная группа
+     * @return число
      */
     @Override
     public int compareTo(MusicBand o) {

@@ -9,6 +9,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
     /**
+     * Конструктор по умолчанию.
+     */
+    public LocalDateTimeAdapter() {
+    }
+    /**
      * Формат для преобразования LocalDateTime в строку.
      */
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -28,9 +33,9 @@ public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
     /**
      * Преобразует объект в XML-строку (маршаллизация).
      *
-     * @param dateTime
-     * @return
-     * @throws Exception
+     * @param dateTime объект, который необходимо преобразовать.
+     * @throws Exception если произошла ошибка при преобразовании.
+     * @return XML-строка, соответствующая переданному объекту.
      */
     @Override
     public String marshal(LocalDateTime dateTime) throws Exception {

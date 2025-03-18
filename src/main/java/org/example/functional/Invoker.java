@@ -10,14 +10,11 @@ import java.util.Map;
  * Для реализации паттерна используется коллекция команд
  * и коллекция команд, которые не требуют аргументов
  *
- * @param
- * @return
  */
 public class Invoker {
     /**
      * Коллекция команд
      *
-     * @see Command
      */
     public Map<String, Command> commands = new HashMap<>();
 
@@ -47,7 +44,7 @@ public class Invoker {
     /**
      * Геттер коллекции команд
      *
-     * @return
+     * @return Коллекция команд
      */
     public Map<String, Command> getCommands() {
         return commands;
