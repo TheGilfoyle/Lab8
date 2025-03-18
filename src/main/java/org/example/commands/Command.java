@@ -11,27 +11,24 @@ public abstract class Command implements Commander {
     /**
      * Ссылка на класс CollectionManager.
      * Предоставляет доступ к методам класса.
-     *
      */
     protected static CollectionManager cm = Main.cm;
     /**
      * Имя команды.
-     *
      */
     protected String nameOfCommand;
     /**
      * Описание команды.
-     *
      */
     protected String description;
     /**
      * Количество аргументов команды.
-     *
      */
     protected int argsAmount;
 
     /**
      * Конструктор класса.
+     *
      * @param name
      * @param description
      * @param argsAmount
@@ -44,6 +41,7 @@ public abstract class Command implements Commander {
 
     /**
      * Возвращает имя команды.
+     *
      * @return
      */
     public String getNameOfCommand() {
@@ -52,6 +50,7 @@ public abstract class Command implements Commander {
 
     /**
      * Возвращает описание команды.
+     *
      * @return
      */
     public String getDescription() {
@@ -60,7 +59,7 @@ public abstract class Command implements Commander {
 
     /**
      * Возвращает количество аргументов команды.
-     * @return
+     *
      */
     public int getArgsAmount() {
         return argsAmount;
@@ -68,7 +67,7 @@ public abstract class Command implements Commander {
 
     /**
      * Метод, отвечающий за выполнение команды.
-     * @return
+     *
      */
     @Override
     public void execute() {

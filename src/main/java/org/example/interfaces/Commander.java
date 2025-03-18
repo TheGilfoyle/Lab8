@@ -1,6 +1,16 @@
 package org.example.interfaces;
 
+/**
+ * Интерфейс команд для реализации паттерна команда
+ */
 public interface Commander {
-    void execute ();
+    /**
+     * Выполнение команды
+     */
+    void execute();
+
+    /**
+     * Описание команды
+     */
     void description();
 }

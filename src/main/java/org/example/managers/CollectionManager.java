@@ -1,41 +1,52 @@
 package org.example.managers;
 
-import org.example.usualClasses.IDgen;
-import org.example.usualClasses.MusicBand;
+import org.example.model.IdGen;
+import org.example.model.MusicBand;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 
 /**
- * The type Collection manager.
+ * Класс управления коллекцией
+ *
+ * @see MusicBand
  */
 public class CollectionManager {
     /**
-     * The collection
+     * Хэшсет коллекции, в котором хранятся элементы
+     *
+     * @param <MusicBand> коллекция, в которой хранятся элементы
      */
     HashSet<MusicBand> bands = new HashSet<>();
-
+    /**
+     * Дата создания коллекции
+     *
+     * @see LocalDateTime
+     */
     private LocalDateTime creationDate = LocalDateTime.now();
 
     /**
-     * Instantiates a new Collection manager.
+     * Конструктор по умолчанию
      */
     public CollectionManager() {
     }
 
     /**
-     * Add music band to collection.
+     * Добавляет элемент в коллекцию
+     *
+     * @param musicBand элемент для добавления
+     * @param band
      */
     public void addBand(MusicBand band) {
         bands.add(band);
     }
 
     /**
-     * Get music band by ID of music band.
+     * Выводит информацию о коллекции
      *
-     * @param id the ID
-     * @return the music band
+     * @param id
+     * @return
      */
     public MusicBand getMusicBandByID(long id) {
         for (MusicBand musicBand : bands) {
@@ -47,6 +58,11 @@ public class CollectionManager {
         return null;
     }
 
+    /**
+     * Удаляет все элементы коллекции
+     *
+     * @return
+     */
     public MusicBand getMinMusicBand() {
         if (bands.isEmpty()) {
             return null;
@@ -56,26 +72,31 @@ public class CollectionManager {
 
 
     /**
-     * Remove music band from collection by ID.
+     * Удаляет все элементы коллекции
      *
-     * @param id the ID
+     * @param id
      */
     public void removeByID(int id) {
         MusicBand musicBand = getMusicBandByID(id);
         if (musicBand != null) {
             bands.remove(musicBand);
-            IDgen.releaseID(musicBand.getId());
+            IdGen.releaseID(musicBand.getId());
             System.out.println("Элемент с ID: " + id + " удалён...");
         }
     }
 
+    /**
+     * Выводит информацию о коллекции
+     *
+     * @param id
+     */
     public void updateID(int id) {
         DataCollector dataCollector = new DataCollector();
         try {
             MusicBand band = getMusicBandByID(id);
             if (band != null) {
                 bands.remove(band);
-                IDgen.releaseID(id);
+                IdGen.releaseID(id);
                 MusicBand musicBand = dataCollector.wrap();
                 bands.add(musicBand);
             }
@@ -86,23 +107,28 @@ public class CollectionManager {
     }
 
     /**
-     * Get music band's collection.
+     * Выводит информацию о коллекции
      *
-     * @return the hashSet
+     * @return
      */
     public HashSet<MusicBand> getMusicBands() {
         return bands;
     }
 
     /**
-     * Set new collection.
+     * Выводит информацию о коллекции
      *
-     * @param newColl the new coll
+     * @param newColl
      */
     public void setCollection(HashSet<MusicBand> newColl) {
         this.bands = newColl;
     }
 
+    /**
+     * Выводит информацию о коллекции
+     *
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -112,6 +138,9 @@ public class CollectionManager {
         return s.toString();
     }
 
+    /**
+     * Выводит информацию о коллекции
+     */
     public void info() {
         System.out.println("Тип коллекции: HashSet, Дата создания: " + creationDate.toString() + ", Количество элементов: " + bands.size());
     }

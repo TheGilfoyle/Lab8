@@ -1,9 +1,9 @@
 package org.example.managers;
 
 import org.example.exceptions.InvalidDataException;
-import org.example.usualClasses.MusicBand;
-import org.example.usualClasses.MusicBandWrapper;
-import org.example.usualClasses.MusicGenre;
+import org.example.model.MusicBand;
+import org.example.model.MusicBandWrapper;
+import org.example.model.MusicGenre;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,8 +15,19 @@ import java.util.Iterator;
 
 /**
  * Класс для парсинга XML-файла и преобразования его в коллекцию объектов MusicBand.
+ * Класс использует JAXB для преобразования XML-данных в объекты MusicBand.
+ * Класс также содержит методы для валидации данных группы и обработки ошибок.
+ * Класс также содержит метод для чтения файла XML и преобразования его в коллекцию объектов MusicBand.
+ * Класс также содержит метод для получения количества невалидных и валидных элементов.
+ * Класс также содержит метод для получения количества элементов в коллекции.
  */
 public class XMLParser {
+    /**
+     * Валидация группы
+     *
+     * @param band
+     * @throws InvalidDataException
+     */
     private static void validateMusicBand(MusicBand band) throws InvalidDataException {
         if (band.getName() == null || band.getName().trim().isEmpty()) {
             throw new InvalidDataException("Название группы не может быть пустым... Элемент не добавлен");
@@ -33,7 +44,8 @@ public class XMLParser {
 
         if (band.getGenreString() != null && !band.getGenreString().trim().isEmpty()) {
             try {
-                MusicGenre.valueOf(band.getGenreString().toUpperCase());
+                MusicGenre parsedGenre = MusicGenre.valueOf(band.getGenreString().trim().toUpperCase());
+                band.setGenre(parsedGenre);
             } catch (IllegalArgumentException e) {
                 throw new InvalidDataException("Недопустимый музыкальный жанр: " + band.getGenreString() + "... Элемент не добавлен");
             }
@@ -41,7 +53,14 @@ public class XMLParser {
     }
 
 
-
+    /**
+     * Чтение файла XML и преобразование его в коллекцию объектов MusicBand.
+     *
+     * @param filePath
+     * @return
+     * @throws JAXBException
+     * @throws InvalidDataException
+     */
     public static HashSet<MusicBand> parseXML(String filePath) throws JAXBException, InvalidDataException {
         File file = new File(filePath);
         JAXBContext jaxbContext = JAXBContext.newInstance(MusicBandWrapper.class);

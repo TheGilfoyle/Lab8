@@ -18,56 +18,49 @@ public class ExecuteScript extends Command {
 
     @Override
     public void execute() {
-        try {
-            String add = "src/main/resources/";
-            String file = Main.console.getToken(1);
-            String fileName = add + file;
-
-            // Читаем файл скрипта
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.isEmpty()) {
-                        continue; // Пропускаем пустые строки
-                    }
-
-                    // Выводим выполняемую команду
-                    System.out.println("Выполнение команды: " + line);
-
-                    // Разбиваем строку на команду и аргументы
-                    String[] tokens = Arrays.stream(line.split(" "))
-                            .filter(s -> !s.isEmpty())
-                            .toArray(String[]::new);
-
-                    // Устанавливаем токены для консоли
-                    Main.console.setTokens(tokens);
-
-                    // Получаем команду
-                    Command command = Main.inv.commands.get(tokens[0]);
-                    if (command == null) {
-                        System.out.println("Команда неизвестная: " + tokens[0]);
-                        continue;
-                    }
-
-                    // Проверяем количество аргументов
-                    if (tokens.length - 1 != command.getArgsAmount()) {
-                        System.out.println("Неверное количество аргументов для команды: " + tokens[0]);
-                        continue;
-                    }
-
-                    // Выполняем команду
-                    try {
-                        command.execute();
-                    } catch (IncorrectArgsNumber e) {
-                        System.out.println("Ошибка при выполнении команды: " + e.getMessage());
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("Ошибка при чтении файла: " + e.getMessage());
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Не указано имя файла для выполнения скрипта.");
-        }
+//        try {
+//            String add = "src/main/resources/";//TODO
+//            String file = Main.console.getToken(1);
+//            String fileName = add + file;
+//
+//            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    line = line.trim();
+//                    if (line.isEmpty()) {
+//                        continue;
+//                    }
+//
+//                    System.out.println("Выполнение команды: " + line);
+//
+//                    String[] tokens = Arrays.stream(line.split(" "))
+//                            .filter(s -> !s.isEmpty())
+//                            .toArray(String[]::new);
+//
+//                    Main.console.setTokens(tokens);
+//
+//                    Command command = Main.inv.commands.get(tokens[0]);
+//                    if (command == null) {
+//                        System.out.println("Команда неизвестная: " + tokens[0]);
+//                        continue;
+//                    }
+//
+//                    if (tokens.length - 1 != command.getArgsAmount()) {
+//                        System.out.println("Неверное количество аргументов для команды: " + tokens[0]);
+//                        continue;
+//                    }
+//
+//                    try {
+//                        command.execute();
+//                    } catch (IncorrectArgsNumber e) {
+//                        System.out.println("Ошибка при выполнении команды: " + e.getMessage());
+//                    }
+//                }
+//            } catch (IOException e) {
+//                System.out.println("Ошибка при чтении файла: " + e.getMessage());
+//            }
+//        } catch (IndexOutOfBoundsException e) {
+//            System.out.println("Не указано имя файла для выполнения скрипта.");
+//        }
     }
 }

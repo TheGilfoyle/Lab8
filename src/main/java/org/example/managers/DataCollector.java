@@ -2,25 +2,41 @@ package org.example.managers;
 
 import org.example.Main;
 import org.example.exceptions.NullValueException;
-import org.example.usualClasses.*;
+import org.example.model.*;
 
 import java.util.EnumSet;
+import java.util.NoSuchElementException;
 
+/**
+ * Класс для сбора данных о музыкальной группе
+ */
 public class DataCollector {
+    /**
+     * Обертка для сбора данных
+     *
+     * @return
+     */
     public MusicBand wrap() {
         MusicBand musicBand = new MusicBand();
-        collectName(musicBand);
-        collectCoordinates(musicBand);
-        collectNumberOfParticipants(musicBand);
-        collectMusicGenre(musicBand);
-        collectStudio(musicBand);
-        IDgen.generateID();
-        System.out.println("Данные успешно собраны");
-        return musicBand;
+        try {
+            collectName(musicBand);
+            collectCoordinates(musicBand);
+            collectNumberOfParticipants(musicBand);
+            collectMusicGenre(musicBand);
+            collectStudio(musicBand);
+
+            System.out.println("Данные успешно собраны");
+            return musicBand;
+        } catch (NoSuchElementException e) {
+            System.exit(0);
+        }
+        return null;
     }
 
     /**
-     * Collect name.
+     * Сбор названия группы
+     *
+     * @param musicBand
      */
     public void collectName(MusicBand musicBand) {
         System.out.println("Введите название группы: ");
@@ -29,7 +45,9 @@ public class DataCollector {
     }
 
     /**
-     * Collect coordinates.
+     * Сбор координат
+     *
+     * @param musicBand
      */
     public void collectCoordinates(MusicBand musicBand) {
         System.out.println("Введите координату x (Integer)");
@@ -40,7 +58,9 @@ public class DataCollector {
     }
 
     /**
-     * Collect coordinates.
+     * Сбор числа участников
+     *
+     * @param musicBand
      */
     public void collectNumberOfParticipants(MusicBand musicBand) {
         System.out.println("Введите количество участников группы: ");
@@ -49,7 +69,9 @@ public class DataCollector {
     }
 
     /**
-     * Collect genre.
+     * Сбор музыкального жанра
+     *
+     * @param musicBand
      */
     public void collectMusicGenre(MusicBand musicBand) {
         System.out.println("Введите музыкальный жанр из списка (или оставьте строку пустой, чтобы установить null): ROCK, JAZZ, PUNK_ROCK");
@@ -59,10 +81,9 @@ public class DataCollector {
 
 
     /**
-     * Collect name.
-     *
+     * Сбор студии
      */
-    public void collectStudio(MusicBand musicBand){
+    public void collectStudio(MusicBand musicBand) {
         System.out.println("Введите имя студии (или оставьте строку пустой, чтобы установить null):");
         String input = Main.sc.nextLine().trim();
         if (input.isEmpty()) {
@@ -76,9 +97,9 @@ public class DataCollector {
 
 
     /**
-     * Collect Long from string.
+     * Сбор всех Long чисел
      *
-     * @return the long value
+     * @return
      */
     public Long collectAllLong() {
         while (true) {
@@ -88,21 +109,21 @@ public class DataCollector {
             } catch (NullValueException ex) {
                 System.out.println("Значение этого поля не может быть пустым");
             } catch (NumberFormatException ex) {
-                System.out.println("Введите тип long.");
+                System.out.println("Введите тип long, напоминание, что long < " + Long.MAX_VALUE + " и > " + Long.MIN_VALUE);
             }
         }
     }
 
     /**
-     * Collect Long from string.
+     * Сбор всех Long чисел больших 0
      *
-     * @return the long value
+     * @return
      */
     public Long collectLong() {
         while (true) {
             try {
                 long capacity = Long.parseLong(collectValue().trim());
-                if (capacity <=0) {
+                if (capacity <= 0) {
                     System.out.println("Значение этого поля должно быть > 0");
                     continue;
                 }
@@ -110,73 +131,77 @@ public class DataCollector {
             } catch (NullValueException ex) {
                 System.out.println("Значение этого поля не может быть пустым");
             } catch (NumberFormatException ex) {
-                System.out.println("Введите тип long.");
+                System.out.println("Введите тип long, напоминание, что long < " + Long.MAX_VALUE + " и > " + Long.MIN_VALUE);
             }
         }
     }
 
-
-
-
-    public String collectValue() throws NullValueException, IllegalArgumentException{
+    /**
+     * Сбор всех значений
+     *
+     * @return
+     * @throws NullValueException
+     * @throws IllegalArgumentException
+     */
+    public String collectValue() throws NullValueException, IllegalArgumentException {
         String value = Main.sc.nextLine();
-        if(value.trim().isEmpty()){
+        if (value.trim().isEmpty()) {
             throw new NullValueException();
         }
         return value;
     }
 
     /**
-     * Collect String from console
+     * Сбор всех строк
      *
-     * @return the string
+     * @return
      */
-    public String collectString(){
-        while(true){
+    public String collectString() {
+        while (true) {
             try {
                 return collectValue().trim();
-            }catch (NullValueException ex){
+            } catch (NullValueException ex) {
                 System.out.println("Значение этого поля не может быть пустым");
             }
         }
     }
 
     /**
-     * Collect Integer from string.
+     * Сбор всех Integer чисел
      *
-     * @return the integer
+     * @return
      */
-    public Integer collectInteger(){
-        while(true){
+    public Integer collectInteger() {
+        while (true) {
             try {
                 int capacity = Integer.parseInt(collectValue().trim());
                 return capacity;
-            }catch (NullValueException ex){
+            } catch (NullValueException ex) {
                 System.out.println("Значение этого поля не может быть пустым");
-            }catch(IllegalArgumentException ex){
-                System.out.println("Введите тип integer, ");
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Введите тип Integer, напоминание, что Integer < " + Integer.MAX_VALUE + " и > " + Integer.MIN_VALUE);
             }
         }
     }
 
 
     /**
-     * Collect ticket type.
+     * Сбор всех музыкальных жанров
      *
-     * @return the ticket type
+     * @return
      */
-    public MusicGenre collectMusicGenre(){
-        while(true){
+    public MusicGenre collectMusicGenre() {
+        while (true) {
             String input = Main.sc.nextLine();
             if (input.trim().isEmpty()) {
                 return null;
             }
-            try{
+            try {
                 return MusicGenre.valueOf(input.toUpperCase().trim());
-            } catch (IllegalArgumentException ex){
+            } catch (IllegalArgumentException ex) {
                 System.out.println("Введите одно из предложенных значений (пустая строка, ROCK, JAZZ, PUNK_ROCK), не балуйтесь!...");
                 EnumSet<MusicGenre> genres = EnumSet.allOf(MusicGenre.class);
-                for (MusicGenre musicGenre: genres) {
+                for (MusicGenre musicGenre : genres) {
                     System.out.println(musicGenre);
                 }
             }

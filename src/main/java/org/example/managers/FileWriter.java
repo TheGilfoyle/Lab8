@@ -1,7 +1,7 @@
 package org.example.managers;
 
-import org.example.usualClasses.MusicBand;
-import org.example.usualClasses.MusicBandWrapper;
+import org.example.model.MusicBand;
+import org.example.model.MusicBandWrapper;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,9 +11,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 
+/**
+ * Класс для записи коллекции в файл.
+ */
 public class FileWriter {
+    /**
+     * Путь к файлу.
+     * Это поле должно быть изменено в зависимости от желаемого пути к файлу.
+     */
     private static final String FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/musicBands.xml";
 
+    /**
+     * Метод для записи коллекции в файл.
+     *
+     * @param musicBands
+     */
     public static void writeToFile(HashSet<MusicBand> musicBands) {
         File file = new File(FILE_PATH);
         File directory = file.getParentFile();

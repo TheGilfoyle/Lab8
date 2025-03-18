@@ -1,14 +1,23 @@
 package org.example.commands;
 
-import org.example.usualClasses.MusicBand;
+import org.example.model.MusicBand;
 
 import java.util.HashSet;
 
+/**
+ * Класс команды "show"
+ */
 public class Show extends Command {
+    /**
+     * Конструктор команды
+     */
     public Show() {
         super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении", 0);
     }
 
+    /**
+     * Метод, реализующий выполнение команды
+     */
     @Override
     public void execute() {
         super.execute();

@@ -4,20 +4,22 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * The type History command.
+ * Класс коллекции команд
  */
 public class HistoryCollection {
     /**
-     * The deque of History commands.
+     * Коллекция команд
+     *
+     * @param <String> Команды
      */
     Deque<String> historyCollection = new ArrayDeque<>(11);
 
     /**
-     * Add command to history.
+     * Добавляет команду в коллекцию
      *
-     * @param command the command
+     * @param command
      */
-    public void addCommand(String command){
+    public void addCommand(String command) {
         if (historyCollection.size() >= 11) {
             historyCollection.pollFirst();
         }
@@ -25,9 +27,9 @@ public class HistoryCollection {
     }
 
     /**
-     * Gets history commands.
+     * Возвращает коллекцию команд
      *
-     * @return the history commands
+     * @return
      */
     public Deque<String> getHistoryCollection() {
         return historyCollection;

@@ -2,8 +2,8 @@ package org.example.commands;
 
 import org.example.Main;
 import org.example.exceptions.InvalidDataException;
-import org.example.usualClasses.MusicBand;
-import org.example.usualClasses.MusicGenre;
+import org.example.model.MusicBand;
+import org.example.model.MusicGenre;
 
 public class CountGreaterThanGenre extends Command {
     public CountGreaterThanGenre() {

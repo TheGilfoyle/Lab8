@@ -1,7 +1,7 @@
 package org.example.managers;
 
 import org.example.exceptions.InvalidDataException;
-import org.example.usualClasses.MusicBand;
+import org.example.model.MusicBand;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -15,6 +15,10 @@ public class FileReader {
 
     /**
      * Метод для чтения пути к XML-файлу и вызова парсера.
+     *
+     * @throws JAXBException        если произошла ошибка при парсинге XML.
+     * @throws InvalidDataException если в данных файла есть ошибки.
+     * @throws Exception            если произошла неизвестная ошибка.
      */
     public static void readAndParseFile() {
         Scanner scanner = new Scanner(System.in);

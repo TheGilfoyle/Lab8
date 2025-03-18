@@ -5,7 +5,6 @@ import static org.example.Main.inv;
 
 /**
  * Класс команды help
- *
  */
 public class Help extends Command {
     /**
@@ -17,7 +16,6 @@ public class Help extends Command {
 
     /**
      * Выполнение команды
-     *
      */
     @Override
     public void execute() {

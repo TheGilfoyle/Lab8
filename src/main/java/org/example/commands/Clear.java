@@ -1,13 +1,12 @@
 package org.example.commands;
 
-import org.example.usualClasses.MusicBand;
+import org.example.model.MusicBand;
 
 import java.util.HashSet;
 
 /**
  * Класс команды "clear".
  * Очищает коллекцию.
- *
  */
 public class Clear extends Command {
     /**
@@ -22,7 +21,6 @@ public class Clear extends Command {
      * Метод для выполнения команды.
      * Проверяет, не пуста ли коллекция, и если нет, то очищает её.
      * Если коллекция пуста, то выводит сообщение об этом.
-     *
      */
     @Override
     public void execute() {

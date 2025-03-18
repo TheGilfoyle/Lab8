@@ -2,7 +2,7 @@
     <musicBand>
         <name>Band A</name>
         <coordinates>
-            <x>4</x>
+            <x>1</x>
             <y>4</y>
         </coordinates>
         <numberOfParticipants>5</numberOfParticipants>
@@ -18,7 +18,7 @@
             <y>-5</y>
         </coordinates>
         <numberOfParticipants>3</numberOfParticipants>
-        <genre>ROCK</genre>
+        <genre> rock </genre>
         <studio>
             <name>Studio Two</name>
         </studio>

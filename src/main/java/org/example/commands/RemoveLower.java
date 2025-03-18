@@ -3,28 +3,29 @@ package org.example.commands;
 import org.example.Main;
 import org.example.exceptions.InvalidDataException;
 import org.example.managers.ComparatorOfNumberOfParticipants;
-import org.example.usualClasses.MusicBand;
+import org.example.model.MusicBand;
 
 import java.util.*;
 
 /**
  * Класс команды remove_lower
- *
  */
 public class RemoveLower extends Command {
     /**
      * Конструктор
-     *
      */
     private final Comparator<MusicBand> comparator = new ComparatorOfNumberOfParticipants();
+
     /**
      * Конструктор команды remove_lower
-     *
      */
     public RemoveLower() {
         super("remove_lower", "удалить из коллекции все элементы, меньшие, чем заданный", 1);
     }
 
+    /**
+     * Выполняет команду
+     */
     @Override
     public void execute() {
 
