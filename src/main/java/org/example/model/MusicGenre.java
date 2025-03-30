@@ -16,7 +16,7 @@ public enum MusicGenre {
     /**
      * Конструктор перечисления, принимающий числовое значение жанра.
      *
-     * @param value
+     * @param value числовое значение жанра
      */
     MusicGenre(int value) {
         this.value = value;
@@ -25,7 +25,7 @@ public enum MusicGenre {
     /**
      * Возвращает числовое значение жанра.
      *
-     * @return
+     * @return числовое значение жанра
      */
     public int getValue() {
         return value;

@@ -7,7 +7,7 @@ public class NoSuchCommandException extends Exception {
 
     /**
      * Возвращает сообщение об ошибке при невалидной команде в скрипте.
-     * @return
+     * @return Строка с сообщением об ошибке
      */
     @Override
     public String getMessage() {

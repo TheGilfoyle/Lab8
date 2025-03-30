@@ -10,6 +10,12 @@ public interface Commander {
     void execute();
 
     /**
+     * Выполнение команды в режиме скрипта
+     * @param args аргументы
+     */
+    void execute(String[] args);
+
+    /**
      * Описание команды
      */
     void description();

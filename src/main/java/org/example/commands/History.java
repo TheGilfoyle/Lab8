@@ -14,7 +14,7 @@ public class History extends Command {
     }
 
     /**
-     * Выполняет команду вывода истории
+     * Выполнение команды
      */
     @Override
     public void execute() {

@@ -14,19 +14,14 @@ import java.util.Iterator;
 
 
 /**
- * Класс для парсинга XML-файла и преобразования его в коллекцию объектов MusicBand.
- * Класс использует JAXB для преобразования XML-данных в объекты MusicBand.
- * Класс также содержит методы для валидации данных группы и обработки ошибок.
- * Класс также содержит метод для чтения файла XML и преобразования его в коллекцию объектов MusicBand.
- * Класс также содержит метод для получения количества невалидных и валидных элементов.
- * Класс также содержит метод для получения количества элементов в коллекции.
+ * Класс для парсинга XML
  */
 public class XMLParser {
     /**
      * Валидация группы
      *
-     * @param band
-     * @throws InvalidDataException
+     * @param band - группа
+     * @throws InvalidDataException - если данные не валидны
      */
     private static void validateMusicBand(MusicBand band) throws InvalidDataException {
         if (band.getName() == null || band.getName().trim().isEmpty()) {
@@ -56,10 +51,10 @@ public class XMLParser {
     /**
      * Чтение файла XML и преобразование его в коллекцию объектов MusicBand.
      *
-     * @param filePath
-     * @return
-     * @throws JAXBException
-     * @throws InvalidDataException
+     * @param filePath - путь к файлу
+     * @return - коллекция объектов MusicBand
+     * @throws JAXBException - если не удалось прочитать файл
+     * @throws InvalidDataException - если данные не валидны
      */
     public static HashSet<MusicBand> parseXML(String filePath) throws JAXBException, InvalidDataException {
         File file = new File(filePath);

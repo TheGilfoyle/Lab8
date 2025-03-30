@@ -12,7 +12,7 @@ public class Exit extends Command {
     }
 
     /**
-     * Метод, выполняющий команду
+     * Выполнение команды
      */
     @Override
     public void execute() {

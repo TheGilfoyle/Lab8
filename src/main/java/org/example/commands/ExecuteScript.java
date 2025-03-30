@@ -2,17 +2,18 @@ package org.example.commands;
 
 import org.example.Main;
 import org.example.exceptions.IncorrectArgsNumber;
+import org.example.managers.ScriptManager;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
 
-import static org.example.Main.inv;
 
 /**
  * Команда для выполнения скрипта из файла.
  */
 public class ExecuteScript extends Command {
+    List<String> list = Arrays.asList("add", "add_if_min", "update_id", "count_greater_than_genre", "remove_by_id", "count_by_studio", "remove_lower", "filter_less_than_studio");
     /**
      * Конструктор класса ExecuteScript.
      */
@@ -25,24 +26,18 @@ public class ExecuteScript extends Command {
      */
     @Override
     public void execute() {
+        Main.scriptMode = true;
         try {
-            String add = "src/main/resources/";//TODO
             String file = Main.console.getToken(1);
-            String fileName = add + file;
-            InputStream previousInput = System.in;
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-                System.setIn(new FileInputStream(fileName));
+
+            ScriptManager scriptManager = new ScriptManager(file);
+
+            try (BufferedReader reader = scriptManager.getBufferedReader()) {
+                Main.currentScriptReader = reader;
                 String line;
                 while ((line = reader.readLine()) != null) {
                     line = line.trim();
-                    if (line.isEmpty()) {
-                        continue;
-                    }
-                    if (inv.getCommands().containsKey(line)) {
-                        System.out.println("Выполнение команды: " + line);
-                    } else {
-                        continue;
-                    }
+                    if (line.isEmpty() || line.startsWith("#")) continue;
 
                     String[] tokens = Arrays.stream(line.split(" "))
                             .filter(s -> !s.isEmpty())
@@ -50,30 +45,43 @@ public class ExecuteScript extends Command {
 
                     Main.console.setTokens(tokens);
 
-                    Command command = inv.commands.get(tokens[0]);
+                    Command command = Main.inv.commands.get(tokens[0]);
                     if (command == null) {
-                        System.out.println("Команда неизвестная: " + tokens[0]);
                         continue;
+                    }
+
+                    if ("execute_script".equals(command.getNameOfCommand())) {
+                        break;
                     }
 
                     if (tokens.length - 1 != command.getArgsAmount()) {
-                        System.out.println("Неверное количество аргументов для команды: " + tokens[0]);
                         continue;
                     }
 
+
                     try {
-                        command.execute();
+                        if (command.check(Arrays.copyOfRange(tokens, 1, tokens.length))) {
+                            System.out.println("Выполнение команды: " + line);
+                        }
+                        if(list.contains(tokens[0])) {
+                            command.execute(Arrays.copyOfRange(tokens, 1, tokens.length));
+                        }
+                        else {
+                            command.execute();
+                        }
                     } catch (IncorrectArgsNumber e) {
                         System.out.println("Ошибка при выполнении команды: " + e.getMessage());
                     }
                 }
-            } catch (IOException e) {
-                System.out.println("Ошибка при чтении файла: " + e.getMessage());
-            }finally {
-                System.setIn(previousInput);
             }
+
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Не указано имя файла для выполнения скрипта.");
+        } catch (IOException e) {
+            System.out.println("Ошибка при чтении скрипта: " + e.getMessage());
+        } finally {
+            Main.scriptMode = false;
+            Main.currentScriptReader = null;
         }
     }
 }

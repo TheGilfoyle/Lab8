@@ -14,7 +14,7 @@ public class Studio {
     /**
      * Возвращает имя студии.
      *
-     * @return
+     * @return имя студии
      */
     @XmlElement
     public String getName() {
@@ -24,7 +24,7 @@ public class Studio {
     /**
      * Устанавливает имя студии.
      *
-     * @param name
+     * @param name имя студии
      */
     public void setName(String name) {
         this.name = name;
@@ -33,7 +33,7 @@ public class Studio {
     /**
      * Возвращает строковое представление студии.
      *
-     * @return
+     * @return строковое представление студии
      */
     @Override
     public String toString() {

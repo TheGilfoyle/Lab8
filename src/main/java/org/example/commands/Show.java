@@ -16,7 +16,7 @@ public class Show extends Command {
     }
 
     /**
-     * Метод, реализующий выполнение команды
+     * Выполнение команды
      */
     @Override
     public void execute() {

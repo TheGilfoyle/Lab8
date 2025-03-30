@@ -1,30 +1,68 @@
 package org.example;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
 import java.util.*;
 
 import org.example.commands.Command;
 import org.example.exceptions.IncorrectArgsNumber;
 import org.example.exceptions.InvalidDataException;
-import org.example.managers.CollectionManager;
-import org.example.managers.ConsoleManager;
-import org.example.managers.HistoryCollection;
+import org.example.managers.*;
 import org.example.functional.Invoker;
-import org.example.managers.XMLParser;
 import org.example.model.MusicBand;
 
 import javax.xml.bind.JAXBException;
 
 
 public class Main {
+    /**
+     * Менеджер коллекции
+     */
     public static CollectionManager cm = new CollectionManager();
-
+    /**
+     * Инвокер команд
+     */
     public static Invoker inv = new Invoker();
-
-    public static Scanner sc = new Scanner(System.in);
-
+    /**
+     * Менеджер консоли
+     */
     public static ConsoleManager console = new ConsoleManager();
-
+    /**
+     * Коллекция истории
+     */
     public static HistoryCollection hc = new HistoryCollection();
+    /**
+     * Менеджер ввода
+     */
+    public static Scanner inputScanner = new Scanner(System.in);
+    /**
+     * Режим скрипта
+     */
+    public static boolean scriptMode = false;
+    /**
+     * Поток ввода скрипта
+     */
+    public static BufferedReader currentScriptReader = null;
+
+    /**
+     * Устанавливает поток ввода
+     * @param in поток ввода
+     */
+    public static void updateInput(InputStream in) {
+        System.setIn(in);
+        inputScanner = new Scanner(in);
+    }
+
+    /**
+     * Читает строку
+     * @return строка
+     */
+    public static String readLine() {
+        if (!inputScanner.hasNextLine()) {
+            throw new NoSuchElementException("Ввод завершён. Нет доступных строк.");
+        }
+        return inputScanner.nextLine();
+    }
 
 //    public static void main(String[] args) {
 //        try {
@@ -45,13 +83,16 @@ public class Main {
 //        }
 //    }
 
+
     public static void main(String[] args) {
         while (true) {
             System.out.print("Введите команду: ");
-            if (!sc.hasNextLine()) {
+            String line;
+            try {
+                line = readLine().trim();
+            } catch (NoSuchElementException e) {
                 break;
             }
-            String line = sc.nextLine().trim();
             if (line.isEmpty()) {
                 continue;
             }

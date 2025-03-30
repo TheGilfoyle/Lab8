@@ -17,8 +17,27 @@ public class CountGreaterThanGenre extends Command {
     }
 
     /**
-     * Проверяет правильность аргумента команды
-     *
+     * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     * @param args
+     * @return true, если аргументы соответствуют ожиданиям, иначе false
+     */
+    @Override
+    public boolean check(String[] args) {
+        if (args.length != 1) return false;
+
+        String genreString = args[0].toUpperCase();
+
+        for (MusicGenre genre : MusicGenre.values()) {
+            if (genre.name().equals(genreString)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Выполнение команды
      */
     @Override
     public void execute() {
@@ -48,4 +67,36 @@ public class CountGreaterThanGenre extends Command {
         }
 
     }
+    /**
+     * Выполнение команды в режиме скрипта.
+     */
+    @Override
+    public void execute(String[] args) {
+        if (args.length != 1) return;
+
+        String genreString = args[0].toUpperCase();
+        boolean isValidGenre = false;
+
+        for (MusicGenre genre : MusicGenre.values()) {
+            if (genre.name().equals(genreString)) {
+                isValidGenre = true;
+                break;
+            }
+        }
+
+        if (!isValidGenre) return;
+
+        MusicGenre genre = MusicGenre.valueOf(genreString);
+        long counter = 0;
+
+        for (MusicBand musicBand : cm.getMusicBands()) {
+            if (musicBand.getGenre() != null && musicBand.getGenre().getValue() > genre.getValue()) {
+                counter++;
+            }
+        }
+
+        System.out.println("Вот аж столько музыкальных групп с жанром больше чем " + genreString + ": " + counter);
+        super.execute();
+    }
+
 }

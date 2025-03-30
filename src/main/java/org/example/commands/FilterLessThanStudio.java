@@ -15,7 +15,7 @@ public class FilterLessThanStudio extends Command {
     }
 
     /**
-     * Переопределенный метод родительского класса
+     * Выполнение команды
      */
     @Override
     public void execute() {
@@ -31,10 +31,42 @@ public class FilterLessThanStudio extends Command {
         }
         if (count == 0 || cm.getMusicBands().isEmpty()) {
             if (count == 0 && !cm.getMusicBands().isEmpty()) {
-                System.out.println("В коллекции нет элементов, длина имени студии которых меньше, чем длина имени студии \"" + nameStudio + "\"");
             } else System.out.println("Коллекция в принципе не содержит элементов...");
         } else {
             System.out.println("Вот все элементы, длина имени студии которых меньше чем \"" + nameStudio + "\"");
         }
     }
+    /**
+     * Выполнение команды в режиме скрипта.
+     */
+    @Override
+    public void execute(String[] args) {
+        if (args.length != 1) return;
+
+        String nameStudio = args[0];
+        int nameStudioLength = nameStudio.length();
+        int count = 0;
+
+        for (MusicBand musicBand : cm.getMusicBands()) {
+            if (musicBand.getStudio() != null &&
+                    musicBand.getStudio().getName() != null &&
+                    musicBand.getStudio().getName().length() < nameStudioLength) {
+                System.out.println(musicBand);
+                count++;
+            }
+        }
+
+        if (count == 0 || cm.getMusicBands().isEmpty()) {
+            if (count == 0 && !cm.getMusicBands().isEmpty()) {
+                System.out.println("В коллекции нет элементов, длина имени студии которых меньше, чем длина имени студии \"" + nameStudio + "\"");
+            } else {
+                System.out.println("Коллекция в принципе не содержит элементов...");
+            }
+        } else {
+            System.out.println("Вот все элементы, длина имени студии которых меньше чем \"" + nameStudio + "\"");
+        }
+
+        super.execute();
+    }
+
 }

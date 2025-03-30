@@ -12,7 +12,7 @@ public class Info extends Command {
     }
 
     /**
-     * Метод для выполнения команды
+     * Выполнение команды
      */
     @Override
     public void execute() {

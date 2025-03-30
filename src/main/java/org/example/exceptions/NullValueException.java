@@ -8,7 +8,7 @@ public class NullValueException extends RuntimeException {
     /**
      * Возвращает сообщение об ошибке.
      *
-     * @return
+     * @return строка сообщения ошибки
      */
     @Override
     public String getMessage() {

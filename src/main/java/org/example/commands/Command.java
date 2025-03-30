@@ -29,9 +29,9 @@ public abstract class Command implements Commander {
     /**
      * Конструктор класса.
      *
-     * @param name команды.
+     * @param name        команды.
      * @param description описание команды.
-     * @param argsAmount количество аргументов команды.
+     * @param argsAmount  количество аргументов команды.
      */
     public Command(String name, String description, int argsAmount) {
         this.nameOfCommand = name;
@@ -59,6 +59,7 @@ public abstract class Command implements Commander {
 
     /**
      * Возвращает количество аргументов команды.
+     *
      * @return Возвращает количество аргументов команды.
      */
     public int getArgsAmount() {
@@ -66,12 +67,24 @@ public abstract class Command implements Commander {
     }
 
     /**
-     * Метод, отвечающий за выполнение команды.
+     * Делает проверку метода на корректное выполнение
      *
+     * @return возвращает результат проверки
+     */
+    public boolean check(String[] args) {
+        return true;
+    }
+
+    /**
+     * Метод, отвечающий за выполнение команды.
      */
     @Override
     public void execute() {
         Main.hc.addCommand(getNameOfCommand());
+    }
+
+    @Override
+    public void execute(String[] args) {
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.example.managers;
 
+import org.example.Main;
 import org.example.model.IdGen;
 import org.example.model.MusicBand;
 
@@ -51,7 +52,7 @@ public class CollectionManager {
                 return musicBand;
             }
         }
-        System.out.println("Элемента с таким id не обнаружено");
+        if(!Main.scriptMode) System.out.println("Элемента с таким id не обнаружено");
         return null;
     }
 

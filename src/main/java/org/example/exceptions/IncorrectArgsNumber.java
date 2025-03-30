@@ -22,7 +22,7 @@ public class IncorrectArgsNumber extends RuntimeException {
     /**
      * Возвращает строку с описанием ошибки
      *
-     * @return
+     * @return строка с описанием ошибки
      */
     @Override
     public String getMessage() {
