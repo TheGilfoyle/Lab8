@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.util.*;
 
@@ -64,27 +65,37 @@ public class Main {
         return inputScanner.nextLine();
     }
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
+//        if (args.length != 1) {
+//            System.out.println("Пожалуйста, укажите путь к XML-файлу как аргумент командной строки.");
+//            return;
+//        }
+//        String filePath = args[0];
+//        File file = new File(filePath);
+//
+//        if (!file.exists() || !file.isFile()) {
+//            System.out.println("Файл не найден: " + filePath);
+//            return;
+//        }
+//
 //        try {
-//            String filePath = "src/main/resources/input.xml";
 //            HashSet<MusicBand> musicBands = XMLParser.parseXML(filePath);
 //
-//            for (MusicBand band : musicBands) {
-//                System.out.println(band);
+//            System.out.println("\n Файл успешно обработан. Количество групп: " + musicBands.size());
+//            System.out.println("==============================================");
+//
+//            for (MusicBand musicBand : musicBands) {
+//                System.out.println(musicBand);
+//                System.out.println("=====================");
 //            }
-//        }
-//        catch (JAXBException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        catch (NullPointerException e) {
-//            System.err.println("Файл input.xml не найден. Проверьте его расположение.");
+//
+//        } catch (JAXBException e) {
+//            System.out.println(" Ошибка при парсинге XML: " + e.getMessage());
 //        } catch (InvalidDataException e) {
-//            System.err.println("Ошибка в данных файла: " + e.getMessage());
+//            System.out.println(" Ошибка в данных файла: " + e.getMessage());
+//        } catch (Exception e) {
+//            System.out.println(" Неизвестная ошибка: " + e.getMessage());
 //        }
-//    }
-
-
-    public static void main(String[] args) {
         while (true) {
             System.out.print("Введите команду: ");
             String line;
@@ -122,8 +133,69 @@ public class Main {
             } catch (IncorrectArgsNumber e) {
                 System.out.println(e.getMessage());
                 System.out.println("Попробуйте ещё раз");
-
             }
         }
     }
+//    public static void main(String[] args) {
+//        try {
+//            String filePath = "src/main/resources/input.xml";
+//            HashSet<MusicBand> musicBands = XMLParser.parseXML(filePath);
+//
+//            for (MusicBand band : musicBands) {
+//                System.out.println(band);
+//            }
+//        }
+//        catch (JAXBException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        catch (NullPointerException e) {
+//            System.err.println("Файл input.xml не найден. Проверьте его расположение.");
+//        } catch (InvalidDataException e) {
+//            System.err.println("Ошибка в данных файла: " + e.getMessage());
+//        }
+//    }
+
+
+//    public static void main(String[] args) {
+//        while (true) {
+//            System.out.print("Введите команду: ");
+//            String line;
+//            try {
+//                line = readLine().trim();
+//            } catch (NoSuchElementException e) {
+//                break;
+//            }
+//            if (line.isEmpty()) {
+//                continue;
+//            }
+//            try {
+//                String[] tokens = Arrays.stream(line.split(" "))
+//                        .filter(s -> !s.isEmpty())
+//                        .toArray(String[]::new);
+//                console.setTokens(tokens);
+//                Command command = inv.commands.get(tokens[0]);
+//                if (tokens.length == 1) {
+//                    if (command.getArgsAmount() != 0) throw new IncorrectArgsNumber(command.getArgsAmount());
+//                    command.execute();
+//                }
+//                if (tokens.length == 2) {
+//                    try {
+//                        if (command.getArgsAmount() == 0) throw new IncorrectArgsNumber(0);
+//                        command.execute();
+//                    } catch (IncorrectArgsNumber e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//                }
+//                if (tokens.length > 2)
+//                    if (command.getArgsAmount() != tokens.length - 1)
+//                        throw new IncorrectArgsNumber(command.getArgsAmount());
+//            } catch (NullPointerException e) {
+//                System.out.println("Команда неизвестная, введите другую");
+//            } catch (IncorrectArgsNumber e) {
+//                System.out.println(e.getMessage());
+//                System.out.println("Попробуйте ещё раз");
+//
+//            }
+//        }
+//    }
 }

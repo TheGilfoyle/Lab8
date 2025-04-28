@@ -18,13 +18,13 @@ public class FileWriter {
     /**
      * Конструктор по умолчанию.
      */
-    public FileWriter() {
+    private FileWriter() {
     }
     /**
      * Путь к файлу.
      * Это поле должно быть изменено в зависимости от желаемого пути к файлу.
      */
-    private static final String FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/musicBands.xml";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "musicBands.xml";
 
     /**
      * Метод для записи коллекции в файл.

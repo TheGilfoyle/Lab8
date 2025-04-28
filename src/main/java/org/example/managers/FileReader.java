@@ -23,7 +23,7 @@ public class FileReader {
      */
     public static void readAndParseFile() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите путь к XML-файлу: ");
+        System.out.print("Введите имя файла XML: ");
         String filePath = scanner.nextLine();
 
         File file = new File(filePath);
@@ -36,14 +36,7 @@ public class FileReader {
             HashSet<MusicBand> musicBands = XMLParser.parseXML(filePath);
             System.out.print("Файл успешно обработан. Количество групп: " + musicBands.size());
             for (MusicBand musicBand : musicBands) {
-                System.out.println("ID: " + musicBand.getId());
-                System.out.println("Name: " + musicBand.getName());
-                System.out.println("Coordinates: (" + musicBand.getCoordinates().getX() + ", " + musicBand.getCoordinates().getY() + ")");
-                System.out.println("LocalDate: " + musicBand.getCreationDate());
-                System.out.println("Number of Participants: " + musicBand.getNumberOfParticipants());
-                System.out.println("Genre: " + musicBand.getGenre());
-                System.out.println("Studio: " + (musicBand.getStudio() != null ? musicBand.getStudio().getName() : "null"));
-                System.out.println("-----------------------------");
+                System.out.println(musicBand);
             }
         } catch (JAXBException e) {
             System.out.println("Ошибка при парсинге XML: " + e.getMessage());

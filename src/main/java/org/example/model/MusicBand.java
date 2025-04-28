@@ -239,8 +239,7 @@ public class MusicBand implements Comparable<MusicBand> {
                 "\ncoordinates=" + coordinates +
                 "\nnumberOfParticipants=" + numberOfParticipants +
                 "\ngenre=" + genre +
-                "\nstudio=" + studio +
-                "\n-------------------------";
+                "\nstudio=" + studio;
     }
 
     /**
