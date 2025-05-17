@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import org.example.Main;
 import org.example.model.MusicBand;
 
 import java.util.HashSet;
@@ -26,8 +27,13 @@ public class Clear extends Command {
         if (cm.getMusicBands().isEmpty()) {
             System.out.println("Коллекция итак пустая, очищать нечего...");
         } else {
-            cm.setCollection(new HashSet<MusicBand>());
-            System.out.println("Коллекция очищена...");
+            boolean dbCleared = Main.db.clear(Main.currentUser);
+            if (dbCleared) {
+                cm.setCollection(new HashSet<MusicBand>());
+                System.out.println("Коллекция очищена...");
+            } else {
+                System.out.println("Не удалось очистить коллекцию...");
+            }
         }
     }
 

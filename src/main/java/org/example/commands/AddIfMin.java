@@ -34,15 +34,26 @@ public class AddIfMin extends Command {
      */
     @Override
     public void execute() {
-        super.execute();
+
         DataCollector collector = new DataCollector();
         MusicBand musicBand = collector.wrap();
 
-        if (Main.cm.getMinMusicBand() == null || Main.cm.getMinMusicBand().compareTo(musicBand) > 0) {
-            cm.addBand(musicBand);
-            System.out.println("Элемент добавлен в коллекцию...");
+        MusicBand min = Main.db.getMinMusicBand();
+        if (min == null || musicBand.compareTo(min) < 0) {
+            try {
+                boolean saved = Main.db.addMusicBand(musicBand, Main.currentUser);
+                if (saved) {
+                    cm.addBand(musicBand);
+                    Main.cm.addBand(musicBand);
+                    System.out.println("Элемент добавлен в коллекцию...");
+                } else {
+                    System.out.println("Не удалось сохранить элемент в БД");
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка при добавлении в БД: " + e.getMessage());
+            }
         } else {
-            System.out.println("Этот элемент не имеет минимальное количество участников, поэтому он не был добавлен... :( ");
+            System.out.println("Этот элемент не является минимальным, поэтому он не был добавлен.");
         }
     }
     /**
@@ -96,8 +107,12 @@ public class AddIfMin extends Command {
             MusicBand currentMin = cm.getMinMusicBand();
 
             if (currentMin == null || musicBand.compareTo(currentMin) < 0) {
-                cm.addBand(musicBand);
-                System.out.println("Элемент добавлен в коллекцию...");
+                boolean saved = Main.db.addMusicBand(musicBand);
+                if (saved) {
+                    Main.cm.addBand(musicBand);
+                    System.out.println("Элемент добавлен в коллекцию...");
+                    super.execute();
+                }
             } else {
                 System.out.println("Этот элемент не является минимальным, поэтому он не был добавлен.");
             }

@@ -3,6 +3,7 @@ package org.example.commands;
 import org.example.Main;
 import org.example.interfaces.Commander;
 import org.example.managers.CollectionManager;
+import org.example.managers.DBManager;
 
 /**
  * Класс, отвечающий за работу с командами.
@@ -13,6 +14,7 @@ public abstract class Command implements Commander {
      * Предоставляет доступ к методам класса.
      */
     protected static CollectionManager cm = Main.cm;
+    protected static DBManager db = Main.db;
     /**
      * Имя команды.
      */

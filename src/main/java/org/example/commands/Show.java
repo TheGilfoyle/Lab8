@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import org.example.Main;
 import org.example.model.MusicBand;
 
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class Show extends Command {
     public void execute() {
         super.execute();
         long amount = 0;
-        HashSet<MusicBand> musicBands = cm.getMusicBands();
+        HashSet<MusicBand> musicBands = Main.db.getMusicBands();
         for (MusicBand mb : musicBands) {
             System.out.println(mb);
             amount++;

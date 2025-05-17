@@ -39,6 +39,7 @@ public class RemoveByID extends Command {
                 throw new InvalidDataException("В качестве аргументов могут быть только числа long больше ноля, будьте добры, соблюдайте правила");
             }
             int id = Integer.parseInt(removingID);
+
             cm.removeByID(id);
             if (cm.getMusicBandByID(id) != null) {
                 super.execute();

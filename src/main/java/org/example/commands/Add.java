@@ -64,11 +64,13 @@ public class Add extends Command {
      */
     @Override
     public void execute() {
+        super.execute();
         DataCollector collector = new DataCollector();
         MusicBand musicBand = collector.wrap();
         if (musicBand != null) {
             cm.addBand(musicBand);
-            super.execute();
+            Main.db.addMusicBand(musicBand, Main.currentUser);
+
         }
     }
     /**
