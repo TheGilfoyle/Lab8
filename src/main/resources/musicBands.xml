@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<musicBands>
+    <musicBand>
+        <coordinates>
+            <x>1</x>
+            <y>1</y>
+        </coordinates>
+        <creationDate>2025-03-28T16:16:36</creationDate>
+        <genre>ROCK</genre>
+        <id>1</id>
+        <name>sdf</name>
+        <numberOfParticipants>1</numberOfParticipants>
+    </musicBand>
+</musicBands>
