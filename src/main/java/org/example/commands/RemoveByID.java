@@ -39,11 +39,16 @@ public class RemoveByID extends Command {
                 throw new InvalidDataException("В качестве аргументов могут быть только числа long больше ноля, будьте добры, соблюдайте правила");
             }
             int id = Integer.parseInt(removingID);
-
-            cm.removeByID(id);
-            if (cm.getMusicBandByID(id) != null) {
-                super.execute();
+            if (cm.getMusicBandByID(id) == null) {
+                throw new InvalidDataException("Элемента с таким id не обнаружено");
             }
+            if (!Main.db.removeByID(Main.currentUser, id)) {
+                throw new InvalidDataException("Не удалось удалить элемент из БД или доступ запрещён");
+            }
+            cm.removeByID(id);
+
+            super.execute();
+
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
         }
@@ -65,11 +70,14 @@ public class RemoveByID extends Command {
             }
 
             int id = Integer.parseInt(removingID);
+            if (!Main.db.removeByID(Main.currentUser, id)) {
+                return;
+            }
             cm.removeByID(id);
 
-            if (cm.getMusicBandByID(id) != null) {
-                super.execute();
-            }
+
+            super.execute();
+
 
         } catch (NumberFormatException ignored) {
         }

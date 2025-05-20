@@ -25,47 +25,6 @@ public class RemoveLower extends Command {
     }
 
     /**
-     * Выполнение команды
-     */
-    @Override
-    public void execute() {
-        if (!Main.scriptMode) {
-            try {
-                String amountOfParticipantsString = Main.console.getToken(1);
-
-                if (!amountOfParticipantsString.matches("^\\d+$")) {
-                    throw new InvalidDataException("В качестве аргументов могут быть только числа, будьте добры, соблюдайте правила");
-                }
-                long amountOfParticipants = Long.parseLong(amountOfParticipantsString);
-                MusicBand referenceBand = new MusicBand();
-                referenceBand.setNumberOfParticipants(amountOfParticipants);
-
-                Set<MusicBand> bandsToRemove = new HashSet<>();
-                int amountToRemove = 0;
-                for (MusicBand musicBand : cm.getMusicBands()) {
-                    if (comparator.compare(musicBand, referenceBand) < 0) {
-                        bandsToRemove.add(musicBand);
-                        amountToRemove++;
-                    }
-                }
-
-                if (amountToRemove == 0 || cm.getMusicBands().isEmpty()) {
-                    if (amountToRemove == 0 && !cm.getMusicBands().isEmpty()) {
-                        System.out.println("Нет музыкальных групп, у которых количество участников меньше чем " + amountOfParticipants);
-                    } else System.out.println("Коллекция в принципе не содержит элементов...");
-                } else {
-                    cm.getMusicBands().removeAll(bandsToRemove);
-                    System.out.println("Удалено " + bandsToRemove.size() + " музыкальных групп с количеством участников меньше чем " + amountOfParticipants);
-                }
-                super.execute();
-            } catch (InvalidDataException e) {
-                System.out.println(e.getMessage());
-            } catch (NumberFormatException e) {
-                System.out.println("Слишком много цифр... Не потянет");
-            }
-        }
-    }
-    /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
      * @param args
      * @return true, если аргументы соответствуют ожиданиям, иначе false
@@ -88,6 +47,55 @@ public class RemoveLower extends Command {
         }
         return false;
     }
+
+    /**
+     * Выполнение команды
+     */
+    @Override
+    public void execute() {
+        if (!Main.scriptMode) {
+            try {
+                String amountOfParticipantsString = Main.console.getToken(1);
+
+                if (!amountOfParticipantsString.matches("^\\d+$")) {
+                    throw new InvalidDataException("В качестве аргументов могут быть только числа, будьте добры, соблюдайте правила");
+                }
+                long amountOfParticipants = Long.parseLong(amountOfParticipantsString);
+
+                Set<MusicBand> bandsToRemove = new HashSet<>();
+                for (MusicBand mb : cm.getMusicBands()) {
+                    if (comparator.compare(mb, new MusicBand() {{ setNumberOfParticipants(amountOfParticipants); }}) < 0) {
+                        bandsToRemove.add(mb);
+                    }
+                }
+
+                if (bandsToRemove.isEmpty()) {
+                    if (cm.getMusicBands().isEmpty()) {
+                        System.out.println("Коллекция в принципе не содержит элементов...");
+                    } else {
+                        System.out.println("Нет музыкальных групп, у которых количество участников меньше чем " + amountOfParticipants);
+                    }
+                } else {
+                    int removedCount = 0;
+                    for (MusicBand mb : bandsToRemove) {
+                        if (Main.db.removeByID(Main.currentUser, mb.getId())) {
+                            cm.removeByID(mb.getId());
+                            removedCount++;
+                        }
+                    }
+                    System.out.println("Удалено " + removedCount +
+                            " музыкальных групп с количеством участников меньше чем " + amountOfParticipantsString);
+                }
+
+                super.execute();
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("Слишком много цифр... Не потянет");
+            }
+        }
+    }
+
     /**
      * Выполнение команды в режиме скрипта.
      */
@@ -105,27 +113,26 @@ public class RemoveLower extends Command {
             }
 
             long amountOfParticipants = Long.parseLong(amountOfParticipantsString);
-            MusicBand referenceBand = new MusicBand();
-            referenceBand.setNumberOfParticipants(amountOfParticipants);
-
             Set<MusicBand> bandsToRemove = new HashSet<>();
-            int amountToRemove = 0;
-            for (MusicBand musicBand : cm.getMusicBands()) {
-                if (comparator.compare(musicBand, referenceBand) < 0) {
-                    bandsToRemove.add(musicBand);
-                    amountToRemove++;
+            for (MusicBand mb : cm.getMusicBands()) {
+                if (comparator.compare(mb, new MusicBand() {{ setNumberOfParticipants(amountOfParticipants); }}) < 0) {
+                    bandsToRemove.add(mb);
                 }
             }
-
             if (cm.getMusicBands().isEmpty()) {
                 System.out.println("Коллекция в принципе не содержит элементов...");
-            } else if (amountToRemove == 0) {
+            } else if (bandsToRemove.isEmpty()) {
                 System.out.println("Нет музыкальных групп, у которых количество участников меньше чем " + amountOfParticipants);
             } else {
-                cm.getMusicBands().removeAll(bandsToRemove);
-                System.out.println("Удалено " + bandsToRemove.size() + " музыкальных групп.");
+                int removedCount = 0;
+                for (MusicBand mb : bandsToRemove) {
+                    if (Main.db.removeByID(Main.currentUser, mb.getId())) {
+                        cm.removeByID(mb.getId());
+                        removedCount++;
+                    }
+                }
+                System.out.println("Удалено " + removedCount + " музыкальных групп.");
             }
-
             super.execute();
 
         } catch (NumberFormatException ignored) {

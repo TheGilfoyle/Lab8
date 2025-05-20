@@ -225,7 +225,11 @@ public class DBManager {
                 ps.setInt(2, band.getCoordinates().getX());
                 ps.setLong(3, band.getCoordinates().getY());
                 ps.setLong(4, band.getNumberOfParticipants());
-                ps.setString(5, band.getGenre() != null ? band.getGenre().name() : null);
+                if (band.getGenre() != null) {
+                    ps.setObject(5, band.getGenre().name(), java.sql.Types.OTHER);
+                } else {
+                    ps.setNull(5, java.sql.Types.OTHER);
+                }
                 ps.setString(6, band.getStudio().getName());
                 ps.setInt(7, id);
                 if (ps.executeUpdate() == 0) throw new SQLException("Updating MusicBand failed.");
@@ -241,6 +245,21 @@ public class DBManager {
         return success;
     }
 
+    public int removeLower(String username, long threshold) {
+        String sql =
+                "DELETE FROM music_bands " +
+                        "WHERE created_by = ? AND number_of_participants < ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setLong(2, threshold);
+            int deleted = ps.executeUpdate();
+            return deleted;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public boolean removeByID(String username, int id) {
         boolean success = false;
         try {
@@ -252,7 +271,7 @@ public class DBManager {
                 try (ResultSet rs = ps.executeQuery()) { if (rs.next()) owner = rs.getString("created_by"); }
             }
             if (!username.equals(owner)) {
-                System.err.println("Cannot delete: permission denied or not found.");
+                System.err.println("Невозможно удалить: элемент не найден либо вы пытаетесь удалить чужой труд, это не хорошо(.");
                 return false;
             }
             try (PreparedStatement ps = conn.prepareStatement("DELETE FROM music_bands WHERE id = ?")) {

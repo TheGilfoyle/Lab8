@@ -2,6 +2,7 @@ package org.example.commands;
 
 import org.example.Main;
 import org.example.exceptions.InvalidDataException;
+import org.example.managers.DataCollector;
 import org.example.model.*;
 
 /**
@@ -40,14 +41,27 @@ public class UpdateID extends Command {
      */
     @Override
     public void execute() {
-
         try {
             String updatingID = Main.console.getToken(1);
             if (!updatingID.matches("^\\d+$")) {
                 throw new InvalidDataException("В качестве аргументов могут быть только числа long больше ноля, будьте добры, соблюдайте правила");
             }
             int id = Integer.parseInt(updatingID);
-            cm.updateID(id);
+
+            DataCollector dc = new DataCollector();
+            MusicBand updated = dc.wrap();
+
+            updated.setId(id);
+
+            boolean ok = Main.db.updateMusicBand(id, updated, Main.currentUser);
+            if (!ok) {
+                System.out.println("Не удалось обновить группу в БД.");
+                return;
+            }
+
+            Main.cm.removeByID(id);
+            Main.cm.addBand(updated);
+            System.out.println("Группа с id " + id + " успешно обновлена.");
             super.execute();
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
@@ -97,21 +111,25 @@ public class UpdateID extends Command {
                 studio.setName(args[6]);
             }
 
-            IdGen.releaseID(id);
-
-            Coordinates coordinates = new Coordinates();
-            coordinates.setX(x);
-            coordinates.setY(y);
+            Coordinates coords = new Coordinates();
+            coords.setX(x);
+            coords.setY(y);
 
             MusicBand updated = new MusicBand();
             updated.setName(name);
-            updated.setCoordinates(coordinates);
+            updated.setCoordinates(coords);
             updated.setNumberOfParticipants(participants);
             updated.setGenre(genre);
             updated.setStudio(studio);
 
+            boolean ok = Main.db.updateMusicBand(id, updated, Main.currentUser);
+            if (!ok) {
+                return;
+            }
+
             Main.cm.removeByID(id);
             Main.cm.addBand(updated);
+
             System.out.println("Группа с id " + id + " успешно обновлена.");
             super.execute();
 

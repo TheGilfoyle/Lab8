@@ -79,7 +79,6 @@ public class Main {
             jsc.connectSSH();
             db.connect();
             System.out.println("Успешно подключено к базе данных...");
-
             boolean authenticated = false;
             while (!authenticated) {
                 System.out.print("Введите 'register' для регистрации или 'login' для входа: ");
@@ -136,6 +135,8 @@ public class Main {
             }
             System.out.println("Успешно авторизован как " + currentUser + "\n");
 
+            cm.setCollection(db.getMusicBands());
+
             while (true) {
                 System.out.print("Введите команду: ");
                 String line;
@@ -156,11 +157,13 @@ public class Main {
                     if (tokens.length == 1) {
                         if (command.getArgsAmount() != 0) throw new IncorrectArgsNumber(command.getArgsAmount());
                         command.execute();
+                        cm.setCollection(db.getMusicBands());
                     }
                     if (tokens.length == 2) {
                         try {
                             if (command.getArgsAmount() == 0) throw new IncorrectArgsNumber(0);
                             command.execute();
+                            cm.setCollection(db.getMusicBands());
                         } catch (IncorrectArgsNumber e) {
                             System.out.println(e.getMessage());
                         }

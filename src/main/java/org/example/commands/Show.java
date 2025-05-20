@@ -23,7 +23,7 @@ public class Show extends Command {
     public void execute() {
         super.execute();
         long amount = 0;
-        HashSet<MusicBand> musicBands = Main.db.getMusicBands();
+        HashSet<MusicBand> musicBands = cm.getMusicBands();
         for (MusicBand mb : musicBands) {
             System.out.println(mb);
             amount++;

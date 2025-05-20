@@ -19,8 +19,8 @@ public class Save extends Command {
      */
     @Override
     public void execute() {
-        FileWriter.writeToFile(Main.cm.getMusicBands());
-        super.execute();
-        System.out.println("Элементы успешно сохранены в файл");
+//        FileWriter.writeToFile(Main.cm.getMusicBands());
+//        super.execute();
+//        System.out.println("Элементы успешно сохранены в файл");
     }
 }

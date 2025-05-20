@@ -38,13 +38,12 @@ public class AddIfMin extends Command {
         DataCollector collector = new DataCollector();
         MusicBand musicBand = collector.wrap();
 
-        MusicBand min = Main.db.getMinMusicBand();
+        MusicBand min = cm.getMinMusicBand();
         if (min == null || musicBand.compareTo(min) < 0) {
             try {
                 boolean saved = Main.db.addMusicBand(musicBand, Main.currentUser);
                 if (saved) {
                     cm.addBand(musicBand);
-                    Main.cm.addBand(musicBand);
                     System.out.println("Элемент добавлен в коллекцию...");
                 } else {
                     System.out.println("Не удалось сохранить элемент в БД");
@@ -109,7 +108,7 @@ public class AddIfMin extends Command {
             if (currentMin == null || musicBand.compareTo(currentMin) < 0) {
                 boolean saved = Main.db.addMusicBand(musicBand);
                 if (saved) {
-                    Main.cm.addBand(musicBand);
+                    cm.addBand(musicBand);
                     System.out.println("Элемент добавлен в коллекцию...");
                     super.execute();
                 }
