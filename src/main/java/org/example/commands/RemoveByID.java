@@ -14,8 +14,10 @@ public class RemoveByID extends Command {
     public RemoveByID() {
         super("remove_by_id", "удалить элемент из коллекции по его id", 1);
     }
+
     /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     *
      * @param args аргументы
      * @return true, если аргументы соответствуют ожиданиям, иначе false
      */
@@ -27,6 +29,7 @@ public class RemoveByID extends Command {
         int id = Integer.parseInt(args[0]);
         return cm.getMusicBandByID(id) != null;
     }
+
     /**
      * Выполнение команды
      */
@@ -53,6 +56,7 @@ public class RemoveByID extends Command {
             System.out.println(e.getMessage());
         }
     }
+
     /**
      * Выполнение команды в режиме скрипта.
      */

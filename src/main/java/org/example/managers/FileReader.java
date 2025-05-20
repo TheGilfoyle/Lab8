@@ -17,9 +17,9 @@ public class FileReader {
      */
     public FileReader() {
     }
+
     /**
      * Метод для чтения пути к XML-файлу и вызова парсера.
-     *
      */
     public static void readAndParseFile() {
         Scanner scanner = new Scanner(System.in);

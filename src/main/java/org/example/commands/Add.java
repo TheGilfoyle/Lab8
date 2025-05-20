@@ -31,6 +31,7 @@ public class Add extends Command {
 
     /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     *
      * @param args
      * @return true, если аргументы соответствуют ожиданиям, иначе false
      */
@@ -59,6 +60,7 @@ public class Add extends Command {
         }
         return true;
     }
+
     /**
      * Выполнение команды
      */
@@ -69,9 +71,10 @@ public class Add extends Command {
         if (musicBand != null) {
             Main.db.addMusicBand(musicBand, Main.currentUser);
             cm.addBand(musicBand);
-            super.execute();
         }
+        super.execute();
     }
+
     /**
      * Выполнение команды в режиме скрипта
      */

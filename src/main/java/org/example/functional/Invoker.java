@@ -9,12 +9,10 @@ import java.util.Map;
  * Класс, реализующий паттерн Invoker
  * Для реализации паттерна используется коллекция команд
  * и коллекция команд, которые не требуют аргументов
- *
  */
 public class Invoker {
     /**
      * Коллекция команд
-     *
      */
     public Map<String, Command> commands = new HashMap<>();
 

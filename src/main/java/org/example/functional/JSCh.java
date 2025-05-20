@@ -2,8 +2,6 @@ package org.example.functional;
 
 import com.jcraft.jsch.*;
 
-import java.util.Properties;
-
 public class JSCh {
     private Session session;
 

@@ -32,8 +32,10 @@ public class CountByStudio extends Command {
         }
         System.out.println("Вот аж столько музыкальных групп со студией \"" + studio + "\": " + counter);
     }
+
     /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     *
      * @param args
      * @return true, если аргументы соответствуют ожиданиям, иначе false
      */

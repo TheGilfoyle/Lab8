@@ -36,6 +36,7 @@ public class FilterLessThanStudio extends Command {
             System.out.println("Вот все элементы, длина имени студии которых меньше чем \"" + nameStudio + "\"");
         }
     }
+
     /**
      * Выполнение команды в режиме скрипта.
      */

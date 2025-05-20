@@ -23,13 +23,13 @@ public class Clear extends Command {
      */
     @Override
     public void execute() {
-        super.execute();
         if (cm.getMusicBands().isEmpty()) {
             System.out.println("Коллекция итак пустая, очищать нечего...");
         } else {
             boolean dbCleared = Main.db.clear(Main.currentUser);
             if (dbCleared) {
                 cm.setCollection(new HashSet<MusicBand>());
+                super.execute();
                 System.out.println("Коллекция очищена...");
             } else {
                 System.out.println("Не удалось очистить коллекцию...");

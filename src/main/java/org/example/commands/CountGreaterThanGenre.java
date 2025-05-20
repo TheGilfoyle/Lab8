@@ -18,6 +18,7 @@ public class CountGreaterThanGenre extends Command {
 
     /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     *
      * @param args
      * @return true, если аргументы соответствуют ожиданиям, иначе false
      */
@@ -67,6 +68,7 @@ public class CountGreaterThanGenre extends Command {
         }
 
     }
+
     /**
      * Выполнение команды в режиме скрипта.
      */

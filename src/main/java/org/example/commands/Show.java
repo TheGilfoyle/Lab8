@@ -1,6 +1,5 @@
 package org.example.commands;
 
-import org.example.Main;
 import org.example.model.MusicBand;
 
 import java.util.HashSet;

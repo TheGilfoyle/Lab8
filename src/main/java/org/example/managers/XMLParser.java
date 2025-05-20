@@ -53,7 +53,7 @@ public class XMLParser {
      *
      * @param filePath - путь к файлу
      * @return - коллекция объектов MusicBand
-     * @throws JAXBException - если не удалось прочитать файл
+     * @throws JAXBException        - если не удалось прочитать файл
      * @throws InvalidDataException - если данные не валидны
      */
     public static HashSet<MusicBand> parseXML(String filePath) throws JAXBException, InvalidDataException {

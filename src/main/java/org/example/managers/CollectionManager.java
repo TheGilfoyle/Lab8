@@ -16,12 +16,10 @@ import java.util.*;
 public class CollectionManager {
     /**
      * Хэшсет коллекции, в котором хранятся элементы
-     *
      */
     HashSet<MusicBand> bands = new HashSet<>();
     /**
      * Дата создания коллекции
-     *
      */
     private LocalDateTime creationDate = LocalDateTime.now();
 
@@ -52,7 +50,7 @@ public class CollectionManager {
                 return musicBand;
             }
         }
-        if(!Main.scriptMode) System.out.println("Элемента с таким id не обнаружено");
+        if (!Main.scriptMode) System.out.println("Элемента с таким id не обнаружено");
         return null;
     }
 
@@ -73,7 +71,6 @@ public class CollectionManager {
      * Удаляет все элементы коллекции
      *
      * @param id ID элемента, который нужно удалить
-     *
      */
     public void removeByID(int id) {
         MusicBand musicBand = getMusicBandByID(id);

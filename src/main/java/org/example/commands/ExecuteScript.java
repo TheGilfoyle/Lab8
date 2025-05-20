@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class ExecuteScript extends Command {
     List<String> list = Arrays.asList("add", "add_if_min", "update_id", "count_greater_than_genre", "remove_by_id", "count_by_studio", "remove_lower", "filter_less_than_studio");
+
     /**
      * Конструктор класса ExecuteScript.
      */
@@ -63,10 +64,9 @@ public class ExecuteScript extends Command {
                         if (command.check(Arrays.copyOfRange(tokens, 1, tokens.length))) {
                             System.out.println("Выполнение команды: " + line);
                         }
-                        if(list.contains(tokens[0])) {
+                        if (list.contains(tokens[0])) {
                             command.execute(Arrays.copyOfRange(tokens, 1, tokens.length));
-                        }
-                        else {
+                        } else {
                             command.execute();
                         }
                     } catch (IncorrectArgsNumber e) {

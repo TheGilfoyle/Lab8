@@ -86,6 +86,7 @@ public class Main {
                 try {
                     cmd = readLine().trim().toLowerCase();
                 } catch (NoSuchElementException e) {
+                    System.exit(0);
                     return;
                 }
                 if ("register".equals(cmd)) {
@@ -94,6 +95,7 @@ public class Main {
                     try {
                         login = readLine().trim();
                     } catch (NoSuchElementException e) {
+                        System.exit(0);
                         return;
                     }
                     System.out.print("Пароль: ");
@@ -101,6 +103,7 @@ public class Main {
                     try {
                         password = readLine().trim();
                     } catch (NoSuchElementException e) {
+                        System.exit(0);
                         return;
                     }
                     db.registerUser(login, password);
@@ -114,6 +117,7 @@ public class Main {
                     try {
                         login = readLine().trim();
                     } catch (NoSuchElementException e) {
+                        System.exit(0);
                         return;
                     }
                     System.out.print("Пароль: ");
@@ -121,6 +125,7 @@ public class Main {
                     try {
                         password = readLine().trim();
                     } catch (NoSuchElementException e) {
+                        System.exit(0);
                         return;
                     }
                     if (db.login(login, password)) {
@@ -133,7 +138,7 @@ public class Main {
                     System.out.println("Неизвестная команда. Введите 'register' или 'login'.");
                 }
             }
-            System.out.println("Успешно авторизован как " + currentUser + "\n");
+            System.out.println("Успешно авторизован как '" + currentUser + "'\n");
 
             cm.setCollection(db.getMusicBands());
 
@@ -143,6 +148,7 @@ public class Main {
                 try {
                     line = readLine().trim();
                 } catch (NoSuchElementException e) {
+                    System.exit(0);
                     break;
                 }
                 if (line.isEmpty()) {

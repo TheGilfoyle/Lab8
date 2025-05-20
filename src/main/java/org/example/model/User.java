@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class User {
     private long id;
     private String login;
-    private String passwordHash;     // 32-символьный MD2-хеш в hex
-    private LocalDateTime createdAt; // дата создания из БД
+    private String passwordHash;
+    private LocalDateTime createdAt;
 
     public User(long id, String login, String passwordHash, LocalDateTime createdAt) {
         this.id = id;
@@ -15,7 +15,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // геттеры
     public long getId() {
         return id;
     }
@@ -32,7 +31,6 @@ public class User {
         return createdAt;
     }
 
-    // сеттеры при необходимости
     public void setId(long id) {
         this.id = id;
     }

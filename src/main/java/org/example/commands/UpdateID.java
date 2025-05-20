@@ -15,16 +15,20 @@ public class UpdateID extends Command {
     public UpdateID() {
         super("update_id", "обновить значение элемента коллекции, id которого равен заданному", 1);
     }
+
     /**
      * Возвращает количество аргументов в зависимости от режима работы программы.
+     *
      * @return количество аргументов
      */
     @Override
     public int getArgsAmount() {
         return Main.scriptMode ? 7 : 1;
     }
+
     /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     *
      * @param args аргументы
      * @return true, если аргументы соответствуют ожиданиям, иначе false
      */
@@ -36,6 +40,7 @@ public class UpdateID extends Command {
         int id = Integer.parseInt(args[0]);
         return cm.getMusicBandByID(id) != null;
     }
+
     /**
      * Выполнение команды
      */
@@ -67,6 +72,7 @@ public class UpdateID extends Command {
             System.out.println(e.getMessage());
         }
     }
+
     /**
      * Выполнение команды в режиме скрипта.
      */

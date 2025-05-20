@@ -11,7 +11,9 @@ import java.util.List;
  * Класс для работы с файлами скриптов
  */
 public class ScriptManager {
-    /** Путь к файлу скрипта */
+    /**
+     * Путь к файлу скрипта
+     */
     private final String filePath;
 
     /**
@@ -55,6 +57,7 @@ public class ScriptManager {
 
     /**
      * Чтение скрипта из файла
+     *
      * @return буферизированный поток
      * @throws IOException если возникла ошибка чтения файла
      */

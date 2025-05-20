@@ -2,7 +2,6 @@ package org.example.managers;
 
 /**
  * Класс для работы с консолью
- *
  */
 public class ConsoleManager {
     /**
@@ -10,6 +9,7 @@ public class ConsoleManager {
      */
     public ConsoleManager() {
     }
+
     /**
      * Массив токенов
      */

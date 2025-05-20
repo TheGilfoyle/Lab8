@@ -14,6 +14,7 @@ public class ComparatorOfNumberOfParticipants implements Comparator<MusicBand> {
     public ComparatorOfNumberOfParticipants() {
         super();
     }
+
     /**
      * Сравнивает два объекта типа {@link MusicBand} по количеству участников группы.
      *

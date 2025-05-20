@@ -23,12 +23,14 @@ public class AddIfMin extends Command {
 
     /**
      * Возвращает количество аргументов в зависимости от режима работы программы.
+     *
      * @return количество аргументов
      */
     @Override
     public int getArgsAmount() {
         return Main.scriptMode ? 6 : 0;
     }
+
     /**
      * Выполнение команды
      */
@@ -44,6 +46,7 @@ public class AddIfMin extends Command {
                 boolean saved = Main.db.addMusicBand(musicBand, Main.currentUser);
                 if (saved) {
                     cm.addBand(musicBand);
+                    super.execute();
                     System.out.println("Элемент добавлен в коллекцию...");
                 } else {
                     System.out.println("Не удалось сохранить элемент в БД");
@@ -55,6 +58,7 @@ public class AddIfMin extends Command {
             System.out.println("Этот элемент не является минимальным, поэтому он не был добавлен.");
         }
     }
+
     /**
      * Выполнение команды в режиме скрипта.
      */
@@ -115,9 +119,6 @@ public class AddIfMin extends Command {
             } else {
                 System.out.println("Этот элемент не является минимальным, поэтому он не был добавлен.");
             }
-
-            super.execute();
-
         } catch (NumberFormatException ignored) {
         }
     }

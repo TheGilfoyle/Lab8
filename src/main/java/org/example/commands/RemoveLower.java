@@ -26,6 +26,7 @@ public class RemoveLower extends Command {
 
     /**
      * Проверяет, что переданные аргументы соответствуют ожиданиям.
+     *
      * @param args
      * @return true, если аргументы соответствуют ожиданиям, иначе false
      */
@@ -64,7 +65,9 @@ public class RemoveLower extends Command {
 
                 Set<MusicBand> bandsToRemove = new HashSet<>();
                 for (MusicBand mb : cm.getMusicBands()) {
-                    if (comparator.compare(mb, new MusicBand() {{ setNumberOfParticipants(amountOfParticipants); }}) < 0) {
+                    if (comparator.compare(mb, new MusicBand() {{
+                        setNumberOfParticipants(amountOfParticipants);
+                    }}) < 0) {
                         bandsToRemove.add(mb);
                     }
                 }
@@ -80,14 +83,13 @@ public class RemoveLower extends Command {
                     for (MusicBand mb : bandsToRemove) {
                         if (Main.db.removeByID(Main.currentUser, mb.getId())) {
                             cm.removeByID(mb.getId());
+                            super.execute();
                             removedCount++;
                         }
                     }
                     System.out.println("Удалено " + removedCount +
                             " музыкальных групп с количеством участников меньше чем " + amountOfParticipantsString);
                 }
-
-                super.execute();
             } catch (InvalidDataException e) {
                 System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
@@ -115,7 +117,9 @@ public class RemoveLower extends Command {
             long amountOfParticipants = Long.parseLong(amountOfParticipantsString);
             Set<MusicBand> bandsToRemove = new HashSet<>();
             for (MusicBand mb : cm.getMusicBands()) {
-                if (comparator.compare(mb, new MusicBand() {{ setNumberOfParticipants(amountOfParticipants); }}) < 0) {
+                if (comparator.compare(mb, new MusicBand() {{
+                    setNumberOfParticipants(amountOfParticipants);
+                }}) < 0) {
                     bandsToRemove.add(mb);
                 }
             }

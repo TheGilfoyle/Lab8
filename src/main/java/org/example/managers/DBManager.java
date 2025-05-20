@@ -19,6 +19,7 @@ public class DBManager {
     private static Connection conn;
     private static ScriptRunner runner;
     private String currentUser;
+
     public void connect() {
         try {
             conn = DriverManager.getConnection(
@@ -80,12 +81,7 @@ public class DBManager {
         }
         return bands;
     }
-    public MusicBand getMinMusicBand() {
-        if (getMusicBands().isEmpty()) {
-            return null;
-        }
-        return Collections.min(getMusicBands());
-    }
+
     public Map<String, User> getUsers() {
         Map<String, User> users = new HashMap<>();
         String sql = "SELECT id, login, password_hash, created_at FROM users";
@@ -127,9 +123,17 @@ public class DBManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -157,7 +161,7 @@ public class DBManager {
                 e.printStackTrace();
             }
         }
-        if (!authenticated) System.out.println("Invalid login or password.");
+        if (!authenticated) System.out.println("Неверный пароль или логин.");
         return authenticated;
     }
 
@@ -165,35 +169,47 @@ public class DBManager {
     public boolean addMusicBand(MusicBand band, String username) {
         boolean success = false;
         if (!getUsers().containsKey(username)) {
-            System.err.println("Cannot add band: user '" + username + "' not found.");
+            System.err.println("Нельзя добавить группу: пользователь '" + username + "' не найден.");
             return false;
         }
         try {
             conn.setAutoCommit(false);
-            String sql = "INSERT INTO music_bands " +
-                    "(name, coord_x, coord_y, number_of_participants, genre, studio_name, created_by) " +
-                    "VALUES (?, ?, ?, ?, ?::music_genre, ?, ?)\n RETURNING id";
+            int newId = findMinFreeId();
+            String sql = "INSERT INTO music_bands "
+                    + "(id,name,coord_x,coord_y,number_of_participants,genre,studio_name,created_by) "
+                    + "VALUES (?, ?, ?, ?, ?, ?::music_genre, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setString(1, band.getName());
-                ps.setInt(2, band.getCoordinates().getX());
-                ps.setLong(3, band.getCoordinates().getY());
-                ps.setLong(4, band.getNumberOfParticipants());
-                ps.setString(5, band.getGenre() != null ? band.getGenre().name() : null);
-                ps.setString(6, band.getStudio().getName());
-                ps.setString(7, username);
-                if (ps.executeUpdate() == 0) throw new SQLException("Creating MusicBand failed, no rows affected.");
+                ps.setInt(1, newId);
+                ps.setString(2, band.getName());
+                ps.setInt(3, band.getCoordinates().getX());
+                ps.setLong(4, band.getCoordinates().getY());
+                ps.setLong(5, band.getNumberOfParticipants());
+                ps.setString(6, band.getGenre() != null ? band.getGenre().name() : null);
+                ps.setString(7, band.getStudio() != null
+                        ? band.getStudio().getName()
+                        : null);
+                ps.setString(8, username);
+                if (ps.executeUpdate() == 0) throw new SQLException("Не получилось создать музыкальную группу...");
                 try (ResultSet keys = ps.getGeneratedKeys()) {
                     if (keys.next()) band.setId(keys.getInt(1));
-                    else throw new SQLException("Creating MusicBand failed, no ID obtained.");
+                    else throw new SQLException("Не получилось создать музыкальную группу...");
                 }
             }
             conn.commit();
             success = true;
         } catch (SQLException e) {
             e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return success;
     }
@@ -201,6 +217,24 @@ public class DBManager {
     public boolean addMusicBand(MusicBand band) {
         return addMusicBand(band, currentUser);
     }
+
+    private int findMinFreeId() throws SQLException {
+        String sql = "SELECT id FROM music_bands ORDER BY id";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            int expected = 1;
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                if (id == expected) {
+                    expected++;
+                } else if (id > expected) {
+                    break;
+                }
+            }
+            return expected;
+        }
+    }
+
 
     public boolean updateMusicBand(int id, MusicBand band, String username) {
         boolean success = false;
@@ -215,7 +249,7 @@ public class DBManager {
                 }
             }
             if (!username.equals(owner)) {
-                System.err.println("Permission denied or band not found.");
+                System.err.println("Отклонено по правам доступа или неверная группа");
                 return false;
             }
             String sql = "UPDATE music_bands SET name = ?, coord_x = ?, coord_y = ?, " +
@@ -232,15 +266,24 @@ public class DBManager {
                 }
                 ps.setString(6, band.getStudio().getName());
                 ps.setInt(7, id);
-                if (ps.executeUpdate() == 0) throw new SQLException("Updating MusicBand failed.");
+                if (ps.executeUpdate() == 0)
+                    throw new SQLException("Обновление данных музыкальной группы провалено...");
             }
             conn.commit();
             success = true;
         } catch (SQLException e) {
             e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return success;
     }
@@ -268,7 +311,9 @@ public class DBManager {
             String chk = "SELECT created_by FROM music_bands WHERE id = ?";
             try (PreparedStatement ps = conn.prepareStatement(chk)) {
                 ps.setInt(1, id);
-                try (ResultSet rs = ps.executeQuery()) { if (rs.next()) owner = rs.getString("created_by"); }
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) owner = rs.getString("created_by");
+                }
             }
             if (!username.equals(owner)) {
                 System.err.println("Невозможно удалить: элемент не найден либо вы пытаетесь удалить чужой труд, это не хорошо(.");
@@ -283,9 +328,17 @@ public class DBManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return success;
     }
@@ -302,92 +355,24 @@ public class DBManager {
             success = true;
         } catch (SQLException e) {
             e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return success;
     }
 
-    public boolean removeFirst(String username) {
-        boolean success = false;
-        try {
-            conn.setAutoCommit(false);
-            int idToRemove = -1;
-            String sqlFind = "SELECT id FROM music_bands WHERE created_by = ? ORDER BY id ASC LIMIT 1";
-            try (PreparedStatement ps = conn.prepareStatement(sqlFind)) {
-                ps.setString(1, username);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) idToRemove = rs.getInt("id");
-                    else { System.out.println("No band to remove for user: " + username); return false; }
-                }
-            }
-            if (idToRemove != -1) {
-                try (PreparedStatement ps = conn.prepareStatement("DELETE FROM music_bands WHERE id = ?")) {
-                    ps.setInt(1, idToRemove);
-                    ps.executeUpdate();
-                }
-            }
-            conn.commit();
-            success = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
-        } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
-        }
-        return success;
-    }
-
-    public boolean removeAnyByGenre(String username, String genreStr) {
-        boolean success = false;
-        try {
-            conn.setAutoCommit(false);
-            MusicGenre.valueOf(genreStr.toUpperCase());
-            int idToRemove = -1;
-            String sqlFind = "SELECT id FROM music_bands WHERE created_by = ? AND genre = ? ORDER BY id ASC LIMIT 1";
-            try (PreparedStatement ps = conn.prepareStatement(sqlFind)) {
-                ps.setString(1, username);
-                ps.setString(2, genreStr.toUpperCase());
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) idToRemove = rs.getInt("id");
-                    else { System.out.println("No band with genre " + genreStr + " to remove."); return false; }
-                }
-            }
-            if (idToRemove != -1) {
-                try (PreparedStatement ps = conn.prepareStatement("DELETE FROM music_bands WHERE id = ?")) {
-                    ps.setInt(1, idToRemove);
-                    ps.executeUpdate();
-                }
-            }
-            conn.commit();
-            success = true;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Invalid genre: " + genreStr);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
-        } finally {
-            try { conn.setAutoCommit(true); } catch (SQLException e) { e.printStackTrace(); }
-        }
-        return success;
-    }
-
-    public String findOwnerByBandID(int id) {
-        String owner = null;
-        String sql = "SELECT created_by FROM music_bands WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) owner = rs.getString("created_by");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return owner;
-    }
-
-    /** Хеширование пароля MD2 → hex-string */
+    /**
+     * Хеширование пароля MD2 → hex-string
+     */
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD2");

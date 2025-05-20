@@ -16,6 +16,7 @@ public class DataCollector {
      */
     public DataCollector() {
     }
+
     /**
      * Обертка для сбора данных
      *
@@ -119,6 +120,7 @@ public class DataCollector {
 
     /**
      * Сбор студии
+     *
      * @param musicBand музыкальная группа
      */
     public void collectStudio(MusicBand musicBand) {
@@ -147,7 +149,8 @@ public class DataCollector {
                 if (!Main.scriptMode) System.out.println("Значение этого поля не может быть пустым");
                 else return null;
             } catch (NumberFormatException ex) {
-                if (!Main.scriptMode) System.out.println("Введите тип long, напоминание, что long < " + Long.MAX_VALUE + " и > " + Long.MIN_VALUE);
+                if (!Main.scriptMode)
+                    System.out.println("Введите тип long, напоминание, что long < " + Long.MAX_VALUE + " и > " + Long.MIN_VALUE);
                 else return null;
             }
         }
@@ -174,7 +177,8 @@ public class DataCollector {
                 if (!Main.scriptMode) System.out.println("Значение этого поля не может быть пустым");
                 else return null;
             } catch (NumberFormatException ex) {
-                if (!Main.scriptMode) System.out.println("Введите тип long, напоминание, что long < " + Long.MAX_VALUE + " и > " + Long.MIN_VALUE);
+                if (!Main.scriptMode)
+                    System.out.println("Введите тип long, напоминание, что long < " + Long.MAX_VALUE + " и > " + Long.MIN_VALUE);
                 else return null;
             }
         }
@@ -184,7 +188,7 @@ public class DataCollector {
      * Сбор всех значений
      *
      * @return Строка без пробелов в начале и в конце
-     * @throws NullValueException Если введен пустой ответ
+     * @throws NullValueException       Если введен пустой ответ
      * @throws IllegalArgumentException Если введен не long
      */
     public String collectValue() throws NullValueException, IllegalArgumentException {
@@ -224,7 +228,8 @@ public class DataCollector {
                 if (!Main.scriptMode) System.out.println("Значение этого поля не может быть пустым");
                 else return null;
             } catch (IllegalArgumentException ex) {
-                if (!Main.scriptMode) System.out.println("Введите тип Integer, напоминание, что Integer < " + Integer.MAX_VALUE + " и > " + Integer.MIN_VALUE);
+                if (!Main.scriptMode)
+                    System.out.println("Введите тип Integer, напоминание, что Integer < " + Integer.MAX_VALUE + " и > " + Integer.MIN_VALUE);
                 else return null;
             }
         }
@@ -251,8 +256,7 @@ public class DataCollector {
                     for (MusicGenre musicGenre : genres) {
                         System.out.println(musicGenre);
                     }
-                }
-                else return null;
+                } else return null;
             }
         }
     }
