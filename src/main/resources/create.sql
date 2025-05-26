@@ -45,8 +45,7 @@ CREATE TABLE music_bands (
                                     CHECK (number_of_participants > 0),
         genre                    music_genre,
         studio_name              TEXT,
-        created_by               TEXT NOT NULL
-                                    REFERENCES users(login)
+        created_by               TEXT NOT NULL REFERENCES users(login)
 );
 
 CREATE INDEX idx_music_bands_created_by ON music_bands(created_by);
