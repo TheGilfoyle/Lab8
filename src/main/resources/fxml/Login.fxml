@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="307.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/17.0.15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.LoginController">
+   <children>
+      <Label fx:id="labelUsername" layoutX="146.0" layoutY="112.0" text="Логин:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <TextField fx:id="usernameField" layoutX="237.0" layoutY="86.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+      <Label fx:id="labelPassword" layoutX="220.0" layoutY="200.0" text="Пароль:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
+      <PasswordField fx:id="passwordField" layoutX="248.0" layoutY="175.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0" />
+      <Button fx:id="registerButton" layoutX="286.0" layoutY="238.0" mnemonicParsing="false" onAction="#onRegister" text="Зарегистрироваться" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="200.0" />
+      <Button fx:id="loginButton" layoutX="286.0" layoutY="297.0" mnemonicParsing="false" onAction="#onLogin" text="Войти" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="170.0" />
+      <ComboBox fx:id="localeComboBox" layoutX="408.0" layoutY="310.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="240.0" />
+   </children>
+</AnchorPane>
