@@ -26,8 +26,8 @@ public class Clear extends Command {
         if (cm.getMusicBands().isEmpty()) {
             System.out.println("Коллекция итак пустая, очищать нечего...");
         } else {
-            boolean dbCleared = Main.db.clear(Main.currentUser);
-            if (dbCleared) {
+            int deletedCount = Main.db.clear(Main.currentUser);
+            if (deletedCount > 0) {
                 cm.setCollection(new HashSet<MusicBand>());
                 super.execute();
                 System.out.println("Коллекция очищена...");

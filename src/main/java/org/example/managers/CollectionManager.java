@@ -45,13 +45,16 @@ public class CollectionManager {
      * @return Возвращает музыкальную группу с заданным ID
      */
     public MusicBand getMusicBandByID(long id) {
-        for (MusicBand musicBand : bands) {
-            if (musicBand.getId() == id) {
-                return musicBand;
-            }
+        MusicBand result = bands.stream()
+            .filter(musicBand -> musicBand.getId() == id)
+            .findFirst()
+            .orElse(null);
+
+        if (result == null && !Main.scriptMode) {
+            System.out.println("Элемента с таким id не обнаружено");
         }
-        if (!Main.scriptMode) System.out.println("Элемента с таким id не обнаружено");
-        return null;
+
+        return result;
     }
 
     /**
@@ -60,10 +63,9 @@ public class CollectionManager {
      * @return Возвращает музыкальную группу с минимальным количеством участников
      */
     public MusicBand getMinMusicBand() {
-        if (bands.isEmpty()) {
-            return null;
-        }
-        return Collections.min(bands);
+        return bands.stream()
+            .min(Comparator.naturalOrder())
+            .orElse(null);
     }
 
 

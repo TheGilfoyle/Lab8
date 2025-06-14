@@ -40,6 +40,8 @@ public class MusicBand implements Comparable<MusicBand> {
      */
     private Studio studio; //Поле может быть null
 
+    private String createdBy;
+
     /**
      * Конструктор для создания музыкальной группы
      *
@@ -142,7 +144,13 @@ public class MusicBand implements Comparable<MusicBand> {
     public void setNumberOfParticipants(long numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
     }
-
+    @XmlElement
+    public String getCreatedBy() {
+        return createdBy;
+    }
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
     /**
      * Геттер для получения жанра музыкальной группы
      *

@@ -22,7 +22,7 @@ import javax.xml.bind.JAXBException;
 
 public class Main {
     /**
-     * Менеджер коллекции
+     * Менеджер коллекцииии
      */
     public static CollectionManager cm = new CollectionManager();
     /**

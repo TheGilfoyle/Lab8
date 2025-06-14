@@ -15,23 +15,24 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
 public class DBManager {
     private static Connection conn;
     private static ScriptRunner runner;
     private String currentUser;
+    private static DBManager instance;
 
-    public void connect() {
-        try {
-            conn = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/studs",
-                    "s465199",
-                    System.getenv("SQL")
-            );
-            runner = new ScriptRunner(conn);
-            setScriptRunnerConfig();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void connect() throws SQLException {
+        conn = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/studs",
+                "s465199",
+                System.getenv("SQL")
+        );
+        runner = new ScriptRunner(conn);
+        runner.setStopOnError(true);
+        runner.setAutoCommit(false);
+        runner.setLogWriter(null);
+        runner.setSendFullScript(false);
     }
 
     public void create() {
@@ -73,6 +74,7 @@ public class DBManager {
                     studio.setName(studioName);
                     band.setStudio(studio);
                 }
+                band.setCreatedBy(rs.getString("created_by"));
 
                 bands.add(band);
             }
@@ -135,6 +137,10 @@ public class DBManager {
                 e.printStackTrace();
             }
         }
+    }
+    public User getCurrentUser() {
+        if (currentUser == null) return null;
+        return getUsers().get(currentUser);
     }
 
     public boolean login(String username, String password) {
@@ -264,7 +270,9 @@ public class DBManager {
                 } else {
                     ps.setNull(5, java.sql.Types.OTHER);
                 }
-                ps.setString(6, band.getStudio().getName());
+                ps.setString(6, band.getStudio() != null
+                        ? band.getStudio().getName()
+                        : null);
                 ps.setInt(7, id);
                 if (ps.executeUpdate() == 0)
                     throw new SQLException("Обновление данных музыкальной группы провалено...");
@@ -301,6 +309,61 @@ public class DBManager {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public Collection<MyObject> getMyObjects() {
+        List<MyObject> objects = new ArrayList<>();
+        for (MusicBand band : getMusicBands()) {
+            objects.add(convertToMyObject(band));
+        }
+        return objects;
+    }
+
+    private MyObject convertToMyObject(MusicBand band) {
+        MyObject obj = new MyObject();
+        obj.setId(band.getId());
+        obj.setName(band.getName());
+        obj.setValue((int) band.getNumberOfParticipants());
+        obj.setOwner(band.getCreatedBy());
+        if (band.getCoordinates() != null) {
+            obj.setX(band.getCoordinates().getX());
+            obj.setY(band.getCoordinates().getY());
+        }
+        obj.setSize(50.0);
+        return obj;
+    }
+
+    private MusicBand convertToMusicBand(MyObject obj) {
+        MusicBand band = new MusicBand();
+        band.setId((int) obj.getId());
+        band.setName(obj.getName());
+
+        Coordinates coords = new Coordinates();
+        coords.setX((int) obj.getX());
+        coords.setY((long) obj.getY());
+        band.setCoordinates(coords);
+
+        band.setNumberOfParticipants(obj.getValue());
+        band.setCreatedBy(obj.getOwner());
+
+        return band;
+    }
+
+    public boolean addObject(MyObject obj, String username) {
+        MusicBand band = convertToMusicBand(obj);
+        return addMusicBand(band, username);
+    }
+
+    public boolean updateObject(long id, MyObject obj, String username) {
+        MusicBand band = convertToMusicBand(obj);
+        return updateMusicBand((int) id, band, username);
+    }
+
+    public MyObject getObjectById(long id) {
+        for (MyObject o : getMyObjects()) {
+            if (o.getId() == id) return o;
+        }
+        return null;
     }
 
     public boolean removeByID(String username, int id) {
@@ -343,16 +406,15 @@ public class DBManager {
         return success;
     }
 
-    public boolean clear(String username) {
-        boolean success = false;
+    public int clear(String username) {
+        int deletedCount = 0;
         try {
             conn.setAutoCommit(false);
             try (PreparedStatement ps = conn.prepareStatement("DELETE FROM music_bands WHERE created_by = ?")) {
                 ps.setString(1, username);
-                ps.executeUpdate();
+                deletedCount = ps.executeUpdate();
             }
             conn.commit();
-            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -367,7 +429,7 @@ public class DBManager {
                 e.printStackTrace();
             }
         }
-        return success;
+        return deletedCount;
     }
 
     /**
@@ -392,5 +454,118 @@ public class DBManager {
         runner.setAutoCommit(false);
         runner.setLogWriter(null);
         runner.setSendFullScript(false);
+    }
+
+    public static synchronized DBManager getInstance() {
+        if (instance == null) {
+            instance = new DBManager();
+        }
+        return instance;
+    }
+
+    /**
+     * Checks if a given number of participants is less than all existing objects in the database.
+     * 
+     * @param participants The number of participants to check
+     * @return true if the number of participants is less than all existing objects, false otherwise
+     */
+    public boolean isMinParticipants(long participants) {
+        String sql = "SELECT MIN(number_of_participants) as min_participants FROM music_bands";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                if (rs.getObject("min_participants") == null) {
+                    return true;
+                }
+                long minParticipants = rs.getLong("min_participants");
+                return participants < minParticipants;
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Counts the number of music bands with the specified studio name.
+     * If studioName is null, counts bands with null studio.
+     * 
+     * @param studioName The studio name to count (can be null)
+     * @return The number of music bands with the specified studio name
+     */
+    public int countByStudio(String studioName) {
+        String sql;
+        if (studioName == null) {
+            sql = "SELECT COUNT(*) as count FROM music_bands WHERE studio_name IS NULL";
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count");
+                }
+                return 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        } else {
+            sql = "SELECT COUNT(*) as count FROM music_bands WHERE studio_name = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, studioName);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("count");
+                    }
+                    return 0;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
+    }
+
+    /**
+     * Counts the number of music bands with a genre greater than the specified genre.
+     * 
+     * @param genre The genre to compare against
+     * @return The number of music bands with a genre greater than the specified genre
+     */
+    public int countGreaterThanGenre(MusicGenre genre) {
+        if (genre == null) {
+            String sql = "SELECT COUNT(*) as count FROM music_bands WHERE genre IS NOT NULL";
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count");
+                }
+                return 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        } else {
+            String genreList = Arrays.stream(MusicGenre.values())
+                .filter(g -> g.getValue() > genre.getValue())
+                .map(g -> "'" + g.name() + "'")
+                .collect(java.util.stream.Collectors.joining(", "));
+
+            if (genreList.isEmpty()) {
+                return 0;
+            }
+
+            String sql = "SELECT COUNT(*) as count FROM music_bands WHERE genre::text IN (" + genreList + ")";
+
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count");
+                }
+                return 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
     }
 }

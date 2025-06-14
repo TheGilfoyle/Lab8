@@ -3,6 +3,9 @@ package org.example.commands;
 import org.example.Main;
 import org.example.model.MusicBand;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Класс команды filter_less_than_studio
  */
@@ -22,16 +25,25 @@ public class FilterLessThanStudio extends Command {
         super.execute();
         String nameStudio = Main.console.getToken(1);
         int nameStudioLength = nameStudio.length();
-        int count = 0;
-        for (MusicBand musicBand : cm.getMusicBands()) {
-            if (musicBand.getStudio() != null && musicBand.getStudio().getName() != null & musicBand.getStudio().getName().length() < nameStudioLength) {
-                System.out.println(musicBand);
-                count++;
-            }
-        }
+
+        List<MusicBand> filteredBands = cm.getMusicBands().stream()
+            .filter(musicBand -> 
+                musicBand.getStudio() != null && 
+                musicBand.getStudio().getName() != null && 
+                musicBand.getStudio().getName().length() < nameStudioLength)
+            .collect(java.util.stream.Collectors.toList());
+
+        // Print each band
+        filteredBands.forEach(System.out::println);
+
+        int count = filteredBands.size();
+
         if (count == 0 || cm.getMusicBands().isEmpty()) {
             if (count == 0 && !cm.getMusicBands().isEmpty()) {
-            } else System.out.println("Коллекция в принципе не содержит элементов...");
+                // No matching bands but collection is not empty
+            } else {
+                System.out.println("Коллекция в принципе не содержит элементов...");
+            }
         } else {
             System.out.println("Вот все элементы, длина имени студии которых меньше чем \"" + nameStudio + "\"");
         }
@@ -46,16 +58,18 @@ public class FilterLessThanStudio extends Command {
 
         String nameStudio = args[0];
         int nameStudioLength = nameStudio.length();
-        int count = 0;
 
-        for (MusicBand musicBand : cm.getMusicBands()) {
-            if (musicBand.getStudio() != null &&
-                    musicBand.getStudio().getName() != null &&
-                    musicBand.getStudio().getName().length() < nameStudioLength) {
-                System.out.println(musicBand);
-                count++;
-            }
-        }
+        List<MusicBand> filteredBands = cm.getMusicBands().stream()
+            .filter(musicBand -> 
+                musicBand.getStudio() != null && 
+                musicBand.getStudio().getName() != null && 
+                musicBand.getStudio().getName().length() < nameStudioLength)
+            .collect(Collectors.toList());
+
+        // Print each band
+        filteredBands.forEach(System.out::println);
+
+        int count = filteredBands.size();
 
         if (count == 0 || cm.getMusicBands().isEmpty()) {
             if (count == 0 && !cm.getMusicBands().isEmpty()) {
